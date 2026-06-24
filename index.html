@@ -1,634 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Jyoti K. · Supply Chain Professional</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jyoti K. · Supply Chain</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background: #0d1117;
-            color: #e6edf3;
-            line-height: 1.7;
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #161b22; }
-        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
-
-        .container {
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-            background: #161b22;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-            padding: 2.5rem 3rem;
-            transition: 0.3s;
-            position: relative;
-            border: 1px solid #30363d;
-        }
-
-        /* EXPORT PDF BUTTON */
-        .export-btn {
-            position: absolute;
-            top: 1.8rem;
-            right: 2rem;
-            background: #21262d;
-            border: 1px solid #30363d;
-            color: #f0f6fc;
-            padding: 0.6rem 1.4rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 10;
-        }
-
-        .export-btn:hover {
-            background: #30363d;
-            border-color: #58a6ff;
-            transform: scale(1.03);
-        }
-
-        .export-btn i { font-size: 1rem; }
-
-        /* PAGE SYSTEM */
-        .page { display: none; animation: fadeIn 0.4s ease; }
-        .page.active { display: block; }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* GO BACK BUTTON */
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #21262d;
-            border: 1px solid #30363d;
-            padding: 0.5rem 1.4rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #f0f6fc;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-bottom: 1.8rem;
-        }
-
-        .back-btn:hover {
-            background: #30363d;
-            border-color: #58a6ff;
-            transform: translateX(-4px);
-        }
-
-        .back-btn i { font-size: 1rem; }
-
-        /* HOME PAGE */
-        .profile-header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 2.5rem;
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .profile-pic-wrapper { position: relative; flex-shrink: 0; }
-
-        .profile-pic {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #58a6ff;
-            box-shadow: 0 8px 20px rgba(88, 166, 255, 0.15);
-            background: #21262d;
-        }
-
-        .profile-pic-placeholder {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #1f2a3a, #0d1117);
-            border: 3px solid #58a6ff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #58a6ff;
-        }
-
-        .profile-pic-edit {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #21262d;
-            border: 1px solid #30363d;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #f0f6fc;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .profile-pic-edit:hover {
-            background: #30363d;
-            border-color: #58a6ff;
-        }
-
-        .title-section h1 {
-            font-size: 2.6rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: #f0f6fc;
-        }
-
-        .title-section h1 span { color: #58a6ff; }
-
-        .title-section h2 {
-            font-size: 1.2rem;
-            font-weight: 400;
-            color: #8b949e;
-            margin-top: 4px;
-        }
-
-        .title-section .tagline {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem 1.2rem;
-        }
-
-        .tagline span {
-            background: #21262d;
-            border: 1px solid #30363d;
-            padding: 0.2rem 1rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: #f0f6fc;
-            font-weight: 500;
-        }
-
-        .tagline span i { color: #58a6ff; margin-right: 4px; }
-
-        .linkedin-link {
-            margin-top: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #0a66c2;
-            color: white;
-            padding: 0.6rem 1.8rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            box-shadow: 0 4px 12px rgba(10, 102, 194, 0.3);
-        }
-
-        .linkedin-link:hover {
-            background: #084a8f;
-            transform: scale(1.03);
-        }
-
-        .summary {
-            background: #0d1117;
-            padding: 1.8rem 2rem;
-            border-radius: 18px;
-            border-left: 4px solid #58a6ff;
-            margin-bottom: 2.2rem;
-            font-size: 1rem;
-            color: #c9d1d9;
-        }
-
-        .summary strong { color: #f0f6fc; }
-        .summary .highlight { color: #58a6ff; font-weight: 600; }
-
-        /* ===== NAVIGATION GRID - THIS IS WHAT YOU WERE MISSING ===== */
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0 1rem 0;
-        }
-
-        .nav-btn {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 16px;
-            padding: 1.4rem 0.8rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #f0f6fc;
-            cursor: pointer;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(88, 166, 255, 0.05), transparent);
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .nav-btn:hover::before { opacity: 1; }
-
-        .nav-btn:hover {
-            border-color: #58a6ff;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.08);
-        }
-
-        .nav-btn i {
-            display: block;
-            font-size: 2rem;
-            margin-bottom: 8px;
-            color: #58a6ff;
-        }
-
-        .nav-btn .badge-count {
-            background: #58a6ff;
-            color: #0d1117;
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 0.1rem 0.5rem;
-            border-radius: 20px;
-            margin-left: 4px;
-        }
-
-        /* SUB-PAGE STYLES */
-        .sub-page-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #f0f6fc;
-            margin-bottom: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .sub-page-title i { color: #58a6ff; }
-
-        .exp-card {
-            background: #0d1117;
-            border-left: 4px solid #58a6ff;
-            padding: 1.4rem 1.8rem;
-            margin-bottom: 1.5rem;
-            border-radius: 16px;
-            transition: 0.3s;
-            border: 1px solid #21262d;
-        }
-
-        .exp-card:hover {
-            border-color: #58a6ff;
-            box-shadow: 0 4px 20px rgba(88, 166, 255, 0.04);
-        }
-
-        .exp-card .exp-header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        .exp-card .exp-header h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #f0f6fc;
-        }
-
-        .exp-card .company {
-            font-weight: 500;
-            color: #8b949e;
-        }
-
-        .exp-card .company i { color: #58a6ff; margin-right: 4px; }
-
-        .exp-card .exp-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem 1.8rem;
-            font-size: 0.85rem;
-            color: #8b949e;
-            margin: 0.3rem 0 0.8rem 0;
-        }
-
-        .exp-card .exp-meta i { margin-right: 5px; color: #58a6ff; width: 1.1rem; }
-
-        .exp-card ul { list-style: none; padding-left: 0; }
-
-        .exp-card ul li {
-            padding-left: 1.6rem;
-            position: relative;
-            margin-bottom: 0.4rem;
-            color: #c9d1d9;
-        }
-
-        .exp-card ul li::before {
-            content: "▹";
-            color: #58a6ff;
-            position: absolute;
-            left: 0;
-            font-weight: 700;
-        }
-
-        .exp-card ul li strong { color: #f0f6fc; }
-
-        .badge {
-            background: #21262d;
-            padding: 0.1rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #8b949e;
-            border: 1px solid #30363d;
-        }
-
-        .badge-success {
-            background: #1f3a2a;
-            color: #58a6ff;
-            border-color: #2d4a3a;
-        }
-
-        .career-break { border-left-color: #8b949e; }
-
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem 1rem;
-            margin: 1rem 0 1.5rem 0;
-        }
-
-        .skills-list .chip {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #c9d1d9;
-            transition: 0.3s;
-        }
-
-        .skills-list .chip:hover {
-            border-color: #58a6ff;
-            color: #f0f6fc;
-        }
-
-        .skills-list .chip i { margin-right: 6px; color: #58a6ff; }
-
-        .hobby-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .hobby-item {
-            background: #0d1117;
-            padding: 1.4rem;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: 500;
-            border: 1px solid #30363d;
-            color: #c9d1d9;
-            transition: 0.3s;
-        }
-
-        .hobby-item:hover {
-            border-color: #58a6ff;
-            transform: translateY(-3px);
-        }
-
-        .hobby-item i {
-            font-size: 2.2rem;
-            color: #58a6ff;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .family-text, .about-text {
-            background: #0d1117;
-            padding: 1.8rem 2rem;
-            border-radius: 18px;
-            border-left: 4px solid #58a6ff;
-            font-size: 1rem;
-            color: #c9d1d9;
-        }
-
-        .family-text strong, .about-text strong { color: #f0f6fc; }
-
-        .journey-timeline {
-            padding-left: 1.5rem;
-            border-left: 3px solid #58a6ff;
-        }
-
-        .journey-timeline .milestone {
-            margin-bottom: 1.8rem;
-            padding-left: 1.2rem;
-        }
-
-        .journey-timeline .milestone strong {
-            color: #f0f6fc;
-            display: block;
-            font-size: 1.05rem;
-        }
-
-        .journey-timeline .milestone p { color: #c9d1d9; margin-top: 4px; }
-        .journey-timeline .milestone .date { color: #8b949e; font-size: 0.85rem; }
-
-        hr {
-            border: 0;
-            border-top: 1px solid #30363d;
-            margin: 2rem 0 0.5rem 0;
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.85rem;
-            color: #8b949e;
-            border-top: 1px solid #21262d;
-            padding-top: 1.5rem;
-        }
-
-        .footer-note i { color: #58a6ff; }
-
-        @media (max-width: 650px) {
-            .container { padding: 1.5rem 1.2rem; }
-            .profile-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .profile-pic, .profile-pic-placeholder {
-                width: 100px;
-                height: 100px;
-            }
-            .title-section h1 { font-size: 2rem; }
-            .tagline { justify-content: center; }
-            .nav-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-            .export-btn {
-                position: relative;
-                top: 0;
-                right: 0;
-                margin-bottom: 1rem;
-                justify-content: center;
-            }
-            .exp-card .exp-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-            }
-        }
-
-        /* PRINT STYLES */
-        @media print {
-            .export-btn, .back-btn, .nav-grid, .profile-pic-edit, .linkedin-link {
-                display: none !important;
-            }
-            body { background: white !important; padding: 0 !important; }
-            .container {
-                box-shadow: none !important;
-                border: none !important;
-                background: white !important;
-                padding: 2rem !important;
-                max-width: 100% !important;
-            }
-            .page { display: block !important; }
-            #page-home { display: block !important; }
-            #page-experience, #page-skills, #page-certifications, #page-about {
-                display: block !important;
-                page-break-after: always;
-            }
-            #page-journey, #page-hobbies, #page-family { display: none !important; }
-            .exp-card, .summary, .family-text, .about-text, .skills-list .chip {
-                background: #f8f9fa !important;
-                color: #1e2b3c !important;
-                border-color: #ddd !important;
-            }
-            .title-section h1, .title-section h2, .sub-page-title, .exp-card .exp-header h3 {
-                color: #1e2b3c !important;
-            }
-            .exp-card ul li, .summary, .family-text, .about-text { color: #333 !important; }
-            .tagline span {
-                background: #eee !important;
-                color: #333 !important;
-            }
-            .skills-list .chip {
-                border: 1px solid #ccc !important;
-                color: #333 !important;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e6edf3;padding:2rem 1rem}
+        .container{max-width:1100px;margin:0 auto;background:#161b22;border-radius:32px;padding:2rem 2.5rem;border:1px solid #30363d;position:relative}
+        .export-btn{position:absolute;top:1.5rem;right:2rem;background:#21262d;border:1px solid #30363d;color:#f0f6fc;padding:.5rem 1.2rem;border-radius:40px;cursor:pointer;font-weight:600;transition:.3s;display:flex;align-items:center;gap:8px}
+        .export-btn:hover{background:#30363d;border-color:#58a6ff}
+        .page{display:none;animation:fadeIn .3s ease}
+        .page.active{display:block}
+        @keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+        .back-btn{background:#21262d;border:1px solid #30363d;padding:.5rem 1.4rem;border-radius:40px;color:#f0f6fc;cursor:pointer;transition:.3s;margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:8px;font-weight:600}
+        .back-btn:hover{background:#30363d;border-color:#58a6ff}
+        .profile-header{display:flex;flex-wrap:wrap;align-items:center;gap:2rem;border-bottom:1px solid #30363d;padding-bottom:1.8rem;margin-bottom:1.8rem}
+        .profile-pic{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #58a6ff;background:#21262d}
+        .profile-pic-wrapper{position:relative}
+        .profile-pic-edit{position:absolute;bottom:0;right:0;background:#21262d;border:1px solid #30363d;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.7rem}
+        .profile-pic-edit:hover{background:#30363d;border-color:#58a6ff}
+        .title-section h1{font-size:2.4rem;font-weight:800;color:#f0f6fc}
+        .title-section h1 span{color:#58a6ff}
+        .title-section h2{font-size:1.1rem;font-weight:400;color:#8b949e}
+        .tagline{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin-top:10px}
+        .tagline span{background:#21262d;border:1px solid #30363d;padding:.2rem .9rem;border-radius:30px;font-size:.75rem;color:#f0f6fc}
+        .tagline span i{color:#58a6ff;margin-right:4px}
+        .linkedin-link{display:inline-flex;align-items:center;gap:8px;background:#0a66c2;color:#fff;padding:.5rem 1.6rem;border-radius:40px;text-decoration:none;font-weight:600;margin-top:12px;transition:.3s}
+        .linkedin-link:hover{background:#084a8f}
+        .summary{background:#0d1117;padding:1.5rem 1.8rem;border-radius:16px;border-left:4px solid #58a6ff;margin-bottom:2rem;color:#c9d1d9;font-size:.95rem}
+        .summary strong{color:#f0f6fc}
+        .nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin:1.5rem 0 1rem}
+        .nav-btn{background:#0d1117;border:1px solid #30363d;border-radius:14px;padding:1.2rem .5rem;text-align:center;font-weight:600;color:#f0f6fc;cursor:pointer;transition:.3s;font-size:.9rem}
+        .nav-btn:hover{border-color:#58a6ff;transform:translateY(-3px)}
+        .nav-btn i{display:block;font-size:1.8rem;margin-bottom:6px;color:#58a6ff}
+        .nav-btn .badge-count{background:#58a6ff;color:#0d1117;font-size:.6rem;padding:.1rem .5rem;border-radius:20px;margin-left:4px}
+        .sub-page-title{font-size:1.8rem;font-weight:700;color:#f0f6fc;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+        .sub-page-title i{color:#58a6ff}
+        .exp-card{background:#0d1117;border-left:4px solid #58a6ff;padding:1.2rem 1.5rem;margin-bottom:1.2rem;border-radius:14px;border:1px solid #21262d}
+        .exp-card .exp-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline}
+        .exp-card .exp-header h3{font-size:1.1rem;color:#f0f6fc}
+        .exp-card .company{color:#8b949e;font-size:.9rem}
+        .exp-meta{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:.8rem;color:#8b949e;margin:.2rem 0 .6rem}
+        .exp-meta i{margin-right:4px;color:#58a6ff}
+        .exp-card ul{list-style:none;padding-left:0}
+        .exp-card ul li{padding-left:1.4rem;position:relative;margin-bottom:.3rem;color:#c9d1d9;font-size:.9rem}
+        .exp-card ul li::before{content:"▹";color:#58a6ff;position:absolute;left:0}
+        .exp-card ul li strong{color:#f0f6fc}
+        .badge{background:#21262d;padding:.1rem .7rem;border-radius:30px;font-size:.65rem;font-weight:600;color:#8b949e;border:1px solid #30363d}
+        .badge-success{background:#1f3a2a;color:#58a6ff;border-color:#2d4a3a}
+        .career-break{border-left-color:#8b949e}
+        .skills-list{display:flex;flex-wrap:wrap;gap:.5rem .9rem;margin:.8rem 0 1.2rem}
+        .skills-list .chip{background:#0d1117;border:1px solid #30363d;padding:.3rem 1rem;border-radius:40px;font-size:.8rem;color:#c9d1d9;transition:.3s}
+        .skills-list .chip:hover{border-color:#58a6ff}
+        .skills-list .chip i{margin-right:5px;color:#58a6ff}
+        .hobby-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.8rem;margin:1.2rem 0}
+        .hobby-item{background:#0d1117;padding:1.2rem;border-radius:14px;text-align:center;border:1px solid #30363d;color:#c9d1d9;transition:.3s;font-size:.9rem}
+        .hobby-item:hover{border-color:#58a6ff}
+        .hobby-item i{font-size:1.8rem;color:#58a6ff;display:block;margin-bottom:6px}
+        .family-text,.about-text{background:#0d1117;padding:1.5rem 1.8rem;border-radius:16px;border-left:4px solid #58a6ff;color:#c9d1d9}
+        .family-text strong,.about-text strong{color:#f0f6fc}
+        .journey-timeline{padding-left:1.2rem;border-left:3px solid #58a6ff}
+        .journey-timeline .milestone{margin-bottom:1.5rem;padding-left:1rem}
+        .journey-timeline .milestone strong{color:#f0f6fc;display:block;font-size:1rem}
+        .journey-timeline .milestone p{color:#c9d1d9;font-size:.9rem}
+        .journey-timeline .milestone .date{color:#8b949e;font-size:.8rem}
+        hr{border:0;border-top:1px solid #30363d;margin:1.5rem 0 .5rem}
+        .footer-note{text-align:center;margin-top:1.5rem;font-size:.8rem;color:#8b949e;border-top:1px solid #21262d;padding-top:1.2rem}
+        .footer-note i{color:#58a6ff}
+        @media(max-width:650px){.container{padding:1.2rem}.profile-header{flex-direction:column;text-align:center}.profile-pic{width:100px;height:100px}.title-section h1{font-size:1.8rem}.nav-grid{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}.export-btn{position:relative;top:0;right:0;margin-bottom:1rem;justify-content:center}}
+        @media print{.export-btn,.back-btn,.nav-grid,.profile-pic-edit,.linkedin-link{display:none!important}body{background:#fff!important;padding:0!important}.container{box-shadow:none!important;border:none!important;background:#fff!important;padding:2rem!important}#page-home,#page-experience,#page-skills,#page-certifications,#page-about{display:block!important}#page-journey,#page-hobbies,#page-family{display:none!important}.exp-card,.summary{background:#f8f9fa!important;color:#1e2b3c!important}}
     </style>
 </head>
 <body>
-
 <div class="container">
 
-    <!-- EXPORT PDF BUTTON -->
-    <button class="export-btn" onclick="exportPDF()">
-        <i class="fas fa-file-pdf"></i> Export as PDF
-    </button>
+<button class="export-btn" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Export PDF</button>
 
-    <!-- ========================================================== -->
-    <!-- PAGE: HOME -->
-    <!-- ========================================================== -->
-    <div id="page-home" class="page active">
-
-        <div class="profile-header">
-            <div class="profile-pic-wrapper">
-                <img src="https://via.placeholder.com/130/58a6ff/ffffff?text=JK" alt="Jyoti K." class="profile-pic" id="profileImage"/>
-                <div class="profile-pic-edit" onclick="document.getElementById('fileInput').click();">
-                    <i class="fas fa-camera"></i>
-                </div>
-                <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="uploadImage(event)"/>
-            </div>
-            <div class="title-section">
-                <h1>Jyoti <span>K.</span></h1>
-                <h2>Supply Chain &amp; Logistics Professional</h2>
-                <div class="tagline">
-                    <span><i class="fas fa-map-pin"></i> Hilversum, NL</span>
-                    <span><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
-                    <span><i class="fas fa-boxes"></i> Inventory Management</span>
-                    <span><i class="fas fa-check-circle"></i> Quality Assurance</span>
-                    <span><i class="fas fa-chart-line"></i> Business Development</span>
-                </div>
-                <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" class="linkedin-link">
-                    <i class="fab fa-linkedin-in"></i> Connect on LinkedIn
-                </a>
-            </div>
+<!-- HOME -->
+<div id="page-home" class="page active">
+    <div class="profile-header">
+        <div class="profile-pic-wrapper">
+            <img src="https://via.placeholder.com/120/58a6ff/ffffff?text=JK" alt="Jyoti" class="profile-pic" id="profileImage"/>
+            <div class="profile-pic-edit" onclick="document.getElementById('fileInput').click();"><i class="fas fa-camera"></i></div>
+            <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="uploadImage(event)"/>
         </div>
-
-        <div class="summary">
-            <strong>Results-driven</strong> supply chain and logistics professional with extensive experience in <strong>reverse logistics, inventory management, quality auditing, business development, and supply chain optimization</strong> within eCommerce environments (B2B &amp; B2C). Skilled in streamlining operations, reducing costs, and enhancing customer satisfaction through efficient logistics and data-driven strategies. <span class="highlight">Certified Six Sigma White Belt</span> with a strong focus on process improvement and waste reduction.
-            <br><br>
-            <strong>Passionate</strong> about leveraging data-driven strategies and innovative solutions to enhance business performance. Let's connect to explore collaboration opportunities!
+        <div class="title-section">
+            <h1>Jyoti <span>K.</span></h1>
+            <h2>Supply Chain &amp; Logistics Professional</h2>
+            <div class="tagline">
+                <span><i class="fas fa-map-pin"></i> Hilversum, NL</span>
+                <span><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
+                <span><i class="fas fa-boxes"></i> Inventory</span>
+                <span><i class="fas fa-check-circle"></i> Quality</span>
+                <span><i class="fas fa-chart-line"></i> Business Dev</span>
+            </div>
+            <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" class="linkedin-link"><i class="fab fa-linkedin-in"></i> Connect on LinkedIn</a>
         </div>
+    </div>
+    <div class="summary">
+        <strong>Results-driven</strong> supply chain professional with <strong>7+ years</strong> experience in <strong>reverse logistics, inventory management, quality auditing, and business development</strong> within eCommerce (B2B &amp; B2C). <span style="color:#58a6ff;font-weight:600">Certified Six Sigma White Belt</span> focused on process improvement and waste reduction.
+    </div>
+    <div class="nav-grid">
+        <div class="nav-btn" onclick="showPage('page-experience')"><i class="fas fa-briefcase"></i> Experience <span class="badge-count">7</span></div>
+        <div class="nav-btn" onclick="showPage('page-skills')"><i class="fas fa-tools"></i> Skills</div>
+        <div class="nav-btn" onclick="showPage('page-certifications')"><i class="fas fa-certificate"></i> Certifications</div>
+        <div class="nav-btn" onclick="showPage('page-about')"><i class="fas fa-user"></i> About Me</div>
+        <div class="nav-btn" onclick="showPage('page-journey')"><i class="fas fa-road"></i> Journey</div>
+        <div class="nav-btn" onclick="showPage('page-hobbies')"><i class="fas fa-heart"></i> Hobbies</div>
+        <div class="nav-btn" onclick="showPage('page-family')"><i class="fas fa-users"></i> Family</div>
+    </div>
+    <div class="footer-note"><i class="fas fa-code"></i> built with <i class="fas fa-heart" style="color:#f85149"></i> · Jyoti K. · 2026</div>
+</div>
 
-        <!-- ===== NAVIGATION GRID - 7 CLICKABLE CARDS ===== -->
-        <h3 style="font-size:1.2rem; color:#f0f6fc; margin-bottom:0.8rem;">
-            <i class="fas fa-compass" style="color:#58a6ff;"></i> Explore My Portfolio
-        </h3>
-        <div class="nav-grid">
-            <div class="nav-btn" onclick="showPage('page-experience')">
-                <i class="fas fa-briefcase"></i> Experience <span class="badge-count">7</span>
-            </div>
-            <div class="nav-btn" onclick="showPage('page-skills')">
-                <i class="fas fa-tools"></i> Skills
-            </div>
-            <div class="nav-btn" onclick="showPage('page-certifications')">
-                <i class="fas fa-certificate"></i> Certifications
-            </div>
-            <div class="nav-btn" onclick="showPage('page-about')">
-                <i class="fas fa-user"></i> About Me
-            </div>
-            <div class="nav-btn" onclick="showPage('page-journey')">
-                <i class="fas fa-road"></i> Journey
-            </div>
-            <div class="nav-btn" onclick="showPage('page-hobbies')">
-                <i class="fas fa-heart"></i> Hobbies
-            </div>
-            <div class="nav-btn" onclick="showPage('page-family')">
-                <i class="fas fa-users"></i> Family
-            </div>
-        </div>
+<!-- EXPERIENCE - ALL 7 ROLES -->
+<div id="page-experience" class="page">
+    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="sub-page-title"><i class="fas fa-briefcase"></i> Experience <span style="font-size:1rem;color:#8b949e">(7 roles)</span></div>
 
-        <div class="footer-note">
-            <i class="fas fa-code"></i> built with <i class="fas
+    <!-- 1. Nike -->
+    <div class="exp-card"><div class="exp-header"><h3>Supply Chain Specialist – Returns</h3><span class="company"><i class="fas fa-check-circle" style="color:#58a6ff"></i> Nike · Contract</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Jun 2025 – Present</span><span><i class="fas fa-map-pin"></i> Hilversum · Hybrid</span><span class="badge badge-success">Current</span></div><ul><li>Managed <strong>RSO (Return Sales Order)</strong> processes in NikeFlow including validation, review, and completion</li><li>Coordinated with <strong>MSC, warehouse, finance, and partners</strong> for smooth return flows</li><li>Performed <strong>data validation and exception handling</strong>, resolving discrepancies proactively</li><li>Monitored return cases ensuring <strong>SLA compliance</strong> and timely closure</li><li>Identified recurring issues and contributed to <strong>process improvements</strong></li></ul></div>
+
+    <!-- 2. Efulfilment Europe -->
+    <div class="exp-card"><div class="exp-header"><h3>Reverse Logistics Specialist</h3><span class="company"><i class="fas fa-building"></i> Efulfilment Europe · Contract</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Feb 2025 – Jun 2025</span><span><i class="fas fa-map-pin"></i> Almere · On-site</span></div><ul><li><strong>End-to-end reverse logistics</strong> for clients and suppliers</li><li>Reduced <strong>return processing time by 18%</strong> through workflow improvements</li></ul></div>
+
+    <!-- 3. Career Break -->
+    <div class="exp-card career-break"><div class="exp-header"><h3><i class="fas fa-heart" style="color:#f85149"></i> Full-time Parenting</h3><span class="badge">Career Break</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> May 2024 – Mar 2025</span></div><ul><li>Focused on <strong>family</strong> while completing <strong>Six Sigma White Belt</strong> certification</li></ul></div>
+
+    <!-- 4. GXO Logistics -->
+    <div class="exp-card"><div class="exp-header"><h3>Inventory Specialist</h3><span class="company"><i class="fas fa-building"></i> GXO Logistics · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Dec 2022 – May 2024</span><span><i class="fas fa-map-pin"></i> Schiphol-Rijk · On-site</span></div><ul><li>Managed <strong>5,000+ SKUs</strong>, reduced discrepancies by <strong>20%</strong></li><li>Achieved <strong>98.5% inventory accuracy</strong> through process improvements</li></ul></div>
+
+    <!-- 5. Material in Motion -->
+    <div class="exp-card"><div class="exp-header"><h3>Production Planner Associate</h3><span class="company"><i class="fas fa-building"></i> Material in Motion · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> May 2022 – Jan 2023</span><span><i class="fas fa-map-pin"></i> Schiphol-Rijk · On-site</span></div><ul><li>Created schedules for <strong>5+ production lines</strong>, reducing delays by <strong>15%</strong></li><li>Monitored inventory and coordinated with procurement to avoid shortages</li><li>Used <strong>SAP</strong> to track work orders, ensuring <strong>95% on-time fulfillment</strong></li><li>Collaborated with supervisors to resolve bottlenecks, improving workflow</li><li>Generated weekly production reports with key performance metrics</li></ul></div>
+
+    <!-- 6. Techaxis, Inc -->
+    <div class="exp-card"><div class="exp-header"><h3>Business Development Consultant</h3><span class="company"><i class="fas fa-building"></i> Techaxis, Inc · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Jul 2021 – Apr 2022</span><span><i class="fas fa-map-pin"></i> India · Remote</span></div><ul><li>Developed <strong>business development strategies</strong> for client acquisition</li><li>Coordinated with cross-functional teams to drive <strong>revenue growth</strong></li><li>Managed client relationships and identified new business opportunities</li></ul></div>
+
+    <!-- 7. Levan IT Consulting + BBEX Logistics (Combined for space) -->
+    <div class="exp-card"><div class="exp-header"><h3>Business Development Consultant</h3><span class="company"><i class="fas fa-building"></i> Levan IT Consulting · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Jul 2020 – Jul 2021</span><span><i class="fas fa-map-pin"></i> Remote</span></div><ul><li>Provided <strong>customer service</strong> through email, phone, and chat</li><li>Resolved customer inquiries and issues quickly and effectively</li><li>Escalated complex issues when needed for resolution</li></ul></div>
+
+    <div class="exp-card"><div class="exp-header"><h3>Supply Chain Specialist</h3><span class="company"><i class="fas fa-building"></i> BBEX Logistics · Contract</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Sep 2017 – Jun 2020</span><span><i class="fas fa-map-pin"></i> India · On-site</span></div><ul><li>Developed <strong>demand forecasts</strong> using historical data and market trends</li><li>Coordinated <strong>end-to-end supply chain</strong> including inventory, order fulfillment, and logistics</li><li>Collaborated with sales and marketing teams for accurate forecasting</li></ul></div>
+</div>
+
+<!-- SKILLS -->
+<div id="page-skills" class="page">
+    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="sub-page-title"><i class="fas fa-tools"></i> Skills</div>
+    <h4 style="color:#f0f6fc;margin:1rem 0 .5rem"><i class="fas fa-laptop-code" style="color:#58a6ff"></i> Technical</h4>
+    <div class="skills-list">
+        <span class="chip"><i class="fas fa-file-excel"></i> Advanced Excel</span>
+        <span class="chip"><i class="fas fa-database"></i> SQL</span>
+        <span class="chip"><i class="fas fa-cloud"></i> SAP S4 / Fiori</span>
+        <span class="chip"><i class="fas fa-warehouse"></i> WMS (JDE) &amp; TMS</span>
+        <span class="chip"><i class="fas fa-chart-bar"></i> Forecasting</span>
+        <span class="chip"><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
+        <span class="chip"><i class="fas fa-table"></i> Data Visualization</span>
+        <span class="chip"><i class="fas fa-chart-pie"></i> Tableau</span>
+    </div>
+    <h4 style="color:#f0f6fc;margin:1.5rem 0 .5rem"><i class="fas fa-star" style="color:#58a6ff"></i> Core Competencies</h4>
+    <div class="skills-list">
+        <span class="chip"><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
+        <span class="chip"><i class="fas fa-boxes"></i> Inventory Management</span>
+        <span class="chip"><i class="fas fa-clipboard-check"></i> Quality Auditing</span>
+        <span class="chip"><i class="fas fa-handshake"></i> Business Development</span>
+        <span class="chip"><i class="fas fa-truck"></i> Supply Chain</span>
+        <span class="chip"><i class="fas fa-chart-pie"></i> Data-Driven Strategy</span>
+        <span class="chip"><i class="fas fa-leaf"></i> Sustainability</span>
+        <span class="chip"><i class="fas fa-users-cog"></i> Cross-functional Collaboration</span>
+        <span class="chip"><i class="fas fa-clock"></i> Root Cause Analysis</span>
+        <span class="chip"><i class="fas fa-bullseye"></i> SLA Management</span>
+    </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<div id="page-certifications" class="page">
+    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="sub-page-title"><i class="fas fa-certificate"></i> Certifications</div>
+    <div class="exp-card" style="border-left-color:#f0883e"><div class="exp-header"><h3>Six Sigma White Belt</h3><span class="badge badge-success">Certified</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> 2024</span></div><ul><li>Lean process improvement methodology for waste reduction</li></ul></div>
+    <div class="exp-card"><div class="exp-header"><h3>Inventory Accuracy Award</h3><span class="badge">GXO Logistics</span></div><div class="exp-meta"><span><i class="fas fa-trophy"></i> 2023</span></div><ul><li>Achieved <strong>98.5% inventory accuracy</strong></li></ul></div>
+    <div class="exp-card"><div class="exp-header"><h3>Return Cycle Time Reduction</h3><span class="badge">Efulfilment Europe</span></div><div class="exp-meta"><span><i class="fas fa-trophy"></i> 2025</span></div><ul><li>Reduced processing time by <strong>18%</strong></li></ul></div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="sub-page-title"><i class="fas fa-user"></i> About Me</div>
+    <div class="about-text">
+        <p><strong>👋 Hi, I'm Jyoti!</strong> A supply chain professional based in <strong>Hilversum, Netherlands</strong> with <strong>7+ years of experience</strong> across reverse logistics, inventory management, business development, and supply chain optimization.</p><br>
+        <p><strong style="color:#58a6ff">🚀 What drives me:</strong></p>
+        <ul style="list-style:none;padding-left:1.5rem">
+            <li>✅ Streamlining operations to reduce costs</li>
+            <li>✅ Leveraging data (Excel, SQL, SAP, Tableau)</li>
+            <li>✅ Enhancing customer satisfaction</li>
+            <li>✅ Sustainable supply chain practices</li>
+        </ul><br>
+        <p><strong style="color:#58a6ff">📌 Let's connect!</strong> <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" style="color:#58a6ff">LinkedIn</a></p>
+    </div>
+</div>
+
+<!-- JOURNEY -->
+<div id="page-journey" class="page">
+    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="sub-page-title"><i class="fas fa-road"></i> Journey</div>
+    <div class="journey-timeline">
+        <div class="milestone"><strong><i class="fas fa-truck" style="color:#58a6ff"></i> 2017–2020 · Supply Chain Specialist</strong><span class="date">BBEX Logistics</span><p>Demand forecasting, end-to-end supply chain coordination</p></div>
+        <div class="milestone"><strong><i class="fas fa-handshake" style="color:#58a6ff"></i> 2020–2021 · Business Development</strong><span class="date">Levan IT Consulting</span><p>Customer service, client relations, issue resolution</p></div>
+        <div class="milestone"><strong><i class="fas fa-chart-line" style="color:#58a6ff"></i> 2021–2022 · Business Development</strong><span class="date">Techaxis, Inc</span><p>Client acquisition, revenue growth, cross-functional coordination</p></div>
+        <div class="milestone"><strong><i class="fas fa-boxes" style="color:#58a6ff"></i> 2022–2024 · Inventory Specialist</strong><span class="date">GXO Logistics</span><p>Managed 5,000+ SKUs, achieved 98.5% accuracy</p></div>
+        <div class="milestone"><strong><i class="fas fa-heart" style="color:#f85149"></i> 2024–2025 · Career Break</strong><span class="date">Full-time Parenting</span><p>Completed Six Sigma White Belt certification</p></div>
+        <div class="milestone"><strong><i class="fas fa-undo-alt" style="color:#58a6ff"></i> 2025 · Reverse Logistics</strong><span class="date">Efulfilment Europe</span><p>Reduced return time by 18%</p></div>
+        <div class="milestone"><strong><i class="fas fa-rocket" style="color:#58a6ff"></i> 2025–Present · Nike</strong><span class="date">Supply Chain Specialist</span><p>Managing Returns Operations in NikeFlow</p></div>
+    </div>
+</div>
+
+<!-- HOBBIES -->
+<div id="page-hobbies" class="page">
+    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="sub-page-title"><i class="fas fa-heart" style="color:#f85149"></i> Hobbies</div>
+    <div class="hobby-grid">
+        <div class="hobby-item"><i class="fas fa-book-open"></i> Reading</div>
+        <div class="hobby-item"><i class="fas fa-running"></i> Running</div>
+        <div class="hobby-item"><i class="fas fa-paint-brush"></i> Creative Arts</div>
+        <div class="hobby-item"><i class="fas fa-globe-europe"></i> Traveling</div>
+        <div class="hobby-item"><i class="fas fa-utensils"></i> Cooking</div>
+        <div class="hobby-item"><i class="fas fa-yoga"></i> Yoga</div>
+        <div class="hobby-item"><i class="fas fa-tree"></i> Hiking</div>
+        <div class="hobby-item"><i class="fas fa-camera"></i> Photography</div>
+    </div>
+    <p style="text-align:center;color:#8b949e;margin-top:1.5rem"><i class="fas fa-quote-left" style="color:#58a6ff"></i> Work hard, stay curious, enjoy the little moments!</p>
+</div>
+
+<!-- FAMILY -->
+<div id="page-family" class="page">
+    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
+    <div class="sub-page-title"><i class="fas fa-users"></i> Family</div>
+    <div class="family-text">
+        <p><i class="fas fa-heart" style="color:#f85149"></i> Family is my <strong>anchor</strong> and greatest motivation.</p><br>
+        <p>Proud <strong>parent</strong> and <strong>partner</strong> based in <strong>Hilversum, Netherlands</strong>.</p><br>
+        <p><strong style="color:#58a6ff">Our values:</strong> ❤️ Love &amp; Support · 🌱 Growth &amp; Learning · 🌍 Exploring together · 🙏 Gratitude</p><br>
+        <p style="text-align:center;font-size:1.1rem;color:#f0f6fc"><em>"Home is where the heart is."</em> 🏡</p>
+    </div>
+</div>
+
+<hr>
+<div class="footer-note"><i class="fas fa-code"></i> built with <i class="fas fa-heart" style="color:#f85149"></i> · Jyoti K. · 2026</div>
+</div>
+
+<script>
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function uploadImage(e){const f=e.target.files[0];if(f){const r=new FileReader();r.onload=function(e){document.getElementById('profileImage').src=e.target.result;localStorage.setItem('profileImage',e.target.result)};r.readAsDataURL(f)}}
+window.onload=function(){const img=localStorage.getItem('profileImage');if(img)document.getElementById('profileImage').src=img}
+function exportPDF(){const show=['page-home','page-experience','page-skills','page-certifications','page-about'];document.querySelectorAll('.page').forEach(p=>p.style.display='none');show.forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='block'});window.print();setTimeout(()=>{document.querySelectorAll('.page').forEach(p=>p.style.display='');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-home').classList.add('active')},1000)}
+</script>
+</body>
+</html>
