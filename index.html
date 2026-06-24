@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Jyoti K. · Supply Chain Professional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <style>
         * {
             margin: 0;
@@ -14,34 +15,68 @@
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: #f0f4f9;
-            color: #1e2b3c;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
             line-height: 1.7;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 2rem 1rem;
         }
 
-        /* Main container */
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #161b22; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
+
+        /* ===== MAIN CONTAINER ===== */
         .container {
             max-width: 1100px;
             width: 100%;
-            background: white;
+            margin: 0 auto;
+            background: #161b22;
             border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             padding: 2.5rem 3rem;
             transition: 0.3s;
             position: relative;
-            min-height: 500px;
+            border: 1px solid #30363d;
         }
 
-        /* ========== PAGE SYSTEM ========== */
+        /* ===== EXPORT PDF BUTTON ===== */
+        .export-btn {
+            position: absolute;
+            top: 1.8rem;
+            right: 2rem;
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #f0f6fc;
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .export-btn:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+            transform: scale(1.03);
+        }
+
+        .export-btn i {
+            font-size: 1rem;
+        }
+
+        /* ===== PAGE SYSTEM ===== */
         .page {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         .page.active {
@@ -49,30 +84,30 @@
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(12px); }
+            0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== GO BACK BUTTON ========== */
+        /* ===== GO BACK BUTTON ===== */
         .back-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #eef2f7;
-            border: none;
+            background: #21262d;
+            border: 1px solid #30363d;
             padding: 0.5rem 1.4rem;
             border-radius: 40px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #1a405a;
+            color: #f0f6fc;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.3s;
             margin-bottom: 1.8rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
 
         .back-btn:hover {
-            background: #dce6f0;
+            background: #30363d;
+            border-color: #58a6ff;
             transform: translateX(-4px);
         }
 
@@ -80,43 +115,86 @@
             font-size: 1rem;
         }
 
-        /* ========== MAIN PAGE (HOME) ========== */
+        /* ===== HOME PAGE ===== */
         .profile-header {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 2rem;
-            border-bottom: 2px solid #eef2f7;
+            gap: 2.5rem;
+            border-bottom: 1px solid #30363d;
             padding-bottom: 2rem;
             margin-bottom: 2rem;
         }
 
-        .avatar {
-            background: linear-gradient(145deg, #0a2e4b, #1b4a6b);
-            width: 110px;
-            height: 110px;
+        /* Profile Picture */
+        .profile-pic-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .profile-pic {
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #58a6ff;
+            box-shadow: 0 8px 20px rgba(88, 166, 255, 0.15);
+            background: #21262d;
+        }
+
+        .profile-pic-placeholder {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1f2a3a, #0d1117);
+            border: 3px solid #58a6ff;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3.2rem;
-            font-weight: 500;
-            flex-shrink: 0;
-            box-shadow: 0 8px 14px rgba(0, 40, 70, 0.2);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #58a6ff;
+            box-shadow: 0 8px 20px rgba(88, 166, 255, 0.1);
+        }
+
+        .profile-pic-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f0f6fc;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-pic-edit:hover {
+            background: #30363d;
+            border-color: #58a6ff;
         }
 
         .title-section h1 {
-            font-size: 2.4rem;
-            font-weight: 600;
+            font-size: 2.6rem;
+            font-weight: 800;
             letter-spacing: -0.5px;
-            color: #0a2e4b;
+            color: #f0f6fc;
+        }
+
+        .title-section h1 span {
+            color: #58a6ff;
         }
 
         .title-section h2 {
             font-size: 1.2rem;
             font-weight: 400;
-            color: #2c5778;
+            color: #8b949e;
             margin-top: 4px;
         }
 
@@ -128,105 +206,152 @@
         }
 
         .tagline span {
-            background: #e9eff5;
+            background: #21262d;
+            border: 1px solid #30363d;
             padding: 0.2rem 1rem;
             border-radius: 30px;
-            font-size: 0.85rem;
-            color: #1a405a;
+            font-size: 0.8rem;
+            color: #f0f6fc;
             font-weight: 500;
+        }
+
+        .tagline span i {
+            color: #58a6ff;
+            margin-right: 4px;
         }
 
         .linkedin-link {
             margin-top: 14px;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: #0a66c2;
             color: white;
-            padding: 0.5rem 1.6rem;
+            padding: 0.6rem 1.8rem;
             border-radius: 40px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.95rem;
-            transition: 0.2s;
-            box-shadow: 0 4px 8px rgba(10, 102, 194, 0.2);
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(10, 102, 194, 0.3);
         }
 
         .linkedin-link:hover {
             background: #084a8f;
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
         /* Summary */
         .summary {
-            background: #f7faff;
-            padding: 1.5rem 2rem;
+            background: #0d1117;
+            padding: 1.8rem 2rem;
             border-radius: 18px;
-            border-left: 5px solid #1b6b9e;
+            border-left: 4px solid #58a6ff;
             margin-bottom: 2.2rem;
             font-size: 1rem;
-            color: #1a3a52;
+            color: #c9d1d9;
         }
 
         .summary strong {
-            color: #0a2e4b;
+            color: #f0f6fc;
         }
 
-        /* ========== NAVIGATION GRID ========== */
+        .summary .highlight {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+
+        /* ===== NAVIGATION GRID ===== */
         .nav-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 1rem;
             margin: 2rem 0 1rem 0;
         }
 
         .nav-btn {
-            background: #f2f6fb;
-            border: 2px solid #e2eaf2;
+            background: #0d1117;
+            border: 1px solid #30363d;
             border-radius: 16px;
-            padding: 1.2rem 0.8rem;
+            padding: 1.4rem 0.8rem;
             text-align: center;
             font-weight: 600;
-            font-size: 1rem;
-            color: #1a405a;
+            font-size: 0.95rem;
+            color: #f0f6fc;
             cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.05), transparent);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover::before {
+            opacity: 1;
+        }
+
+        .nav-btn:hover {
+            border-color: #58a6ff;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.08);
         }
 
         .nav-btn i {
             display: block;
-            font-size: 1.8rem;
-            margin-bottom: 6px;
-            color: #1b6b9e;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #58a6ff;
         }
 
-        .nav-btn:hover {
-            background: #dce8f2;
-            border-color: #1b6b9e;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0, 40, 70, 0.08);
-        }
-
-        /* ========== SUB-PAGE CONTENT STYLES ========== */
-        .sub-page-title {
-            font-size: 1.8rem;
+        .nav-btn .badge-count {
+            background: #58a6ff;
+            color: #0d1117;
+            font-size: 0.65rem;
             font-weight: 700;
-            color: #0a2e4b;
-            margin-bottom: 1.5rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 20px;
+            margin-left: 4px;
+        }
+
+        /* ===== SUB-PAGE STYLES ===== */
+        .sub-page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f0f6fc;
+            margin-bottom: 1.8rem;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
         .sub-page-title i {
-            color: #1b6b9e;
+            color: #58a6ff;
         }
 
+        /* Experience Cards */
         .exp-card {
-            background: #f9fbfd;
-            border-left: 5px solid #2a6b96;
-            padding: 1.2rem 1.8rem;
+            background: #0d1117;
+            border-left: 4px solid #58a6ff;
+            padding: 1.4rem 1.8rem;
             margin-bottom: 1.5rem;
             border-radius: 16px;
+            transition: 0.3s;
+            border: 1px solid #21262d;
+        }
+
+        .exp-card:hover {
+            border-color: #58a6ff;
+            box-shadow: 0 4px 20px rgba(88, 166, 255, 0.04);
         }
 
         .exp-card .exp-header {
@@ -238,27 +363,33 @@
 
         .exp-card .exp-header h3 {
             font-size: 1.2rem;
-            font-weight: 600;
-            color: #112f47;
+            font-weight: 700;
+            color: #f0f6fc;
         }
 
         .exp-card .company {
             font-weight: 500;
-            color: #1b5a7e;
+            color: #8b949e;
+        }
+
+        .exp-card .company i {
+            color: #58a6ff;
+            margin-right: 4px;
         }
 
         .exp-card .exp-meta {
             display: flex;
             flex-wrap: wrap;
             gap: 0.8rem 1.8rem;
-            font-size: 0.9rem;
-            color: #3d5f7a;
-            margin: 0.2rem 0 0.6rem 0;
+            font-size: 0.85rem;
+            color: #8b949e;
+            margin: 0.3rem 0 0.8rem 0;
         }
 
         .exp-card .exp-meta i {
             margin-right: 5px;
-            color: #2a6b96;
+            color: #58a6ff;
+            width: 1.1rem;
         }
 
         .exp-card ul {
@@ -269,33 +400,44 @@
         .exp-card ul li {
             padding-left: 1.6rem;
             position: relative;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
+            color: #c9d1d9;
         }
 
         .exp-card ul li::before {
             content: "▹";
-            color: #1b6b9e;
+            color: #58a6ff;
             position: absolute;
             left: 0;
             font-weight: 700;
         }
 
+        .exp-card ul li strong {
+            color: #f0f6fc;
+        }
+
         .badge {
-            background: #d1e0ed;
+            background: #21262d;
             padding: 0.1rem 0.8rem;
             border-radius: 30px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            color: #0a3f60;
+            color: #8b949e;
+            border: 1px solid #30363d;
+        }
+
+        .badge-success {
+            background: #1f3a2a;
+            color: #58a6ff;
+            border-color: #2d4a3a;
         }
 
         .career-break {
-            border-left-color: #7f9bb3;
-            background: #eef3f8;
+            border-left-color: #8b949e;
         }
 
-        /* Skills chips */
+        /* Skills */
         .skills-list {
             display: flex;
             flex-wrap: wrap;
@@ -304,101 +446,202 @@
         }
 
         .skills-list .chip {
-            background: white;
-            border: 1px solid #c7d9e8;
+            background: #0d1117;
+            border: 1px solid #30363d;
             padding: 0.4rem 1.2rem;
             border-radius: 40px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
-            color: #1d4765;
+            color: #c9d1d9;
+            transition: 0.3s;
+        }
+
+        .skills-list .chip:hover {
+            border-color: #58a6ff;
+            color: #f0f6fc;
         }
 
         .skills-list .chip i {
             margin-right: 6px;
-            color: #1b6b9e;
+            color: #58a6ff;
         }
 
+        /* Hobbies Grid */
         .hobby-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 1rem;
             margin: 1.5rem 0;
         }
 
         .hobby-item {
-            background: #f2f6fb;
-            padding: 1.2rem;
+            background: #0d1117;
+            padding: 1.4rem;
             border-radius: 16px;
             text-align: center;
             font-weight: 500;
-            border: 1px solid #e2eaf2;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            transition: 0.3s;
+        }
+
+        .hobby-item:hover {
+            border-color: #58a6ff;
+            transform: translateY(-3px);
         }
 
         .hobby-item i {
-            font-size: 2rem;
-            color: #1b6b9e;
+            font-size: 2.2rem;
+            color: #58a6ff;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        .family-text {
-            background: #f7faff;
-            padding: 1.5rem 2rem;
+        /* Family & About */
+        .family-text, .about-text {
+            background: #0d1117;
+            padding: 1.8rem 2rem;
             border-radius: 18px;
-            border-left: 5px solid #1b6b9e;
-            font-size: 1.05rem;
+            border-left: 4px solid #58a6ff;
+            font-size: 1rem;
+            color: #c9d1d9;
         }
 
+        .family-text strong, .about-text strong {
+            color: #f0f6fc;
+        }
+
+        /* Journey Timeline */
         .journey-timeline {
             padding-left: 1.5rem;
-            border-left: 3px solid #1b6b9e;
+            border-left: 3px solid #58a6ff;
         }
 
         .journey-timeline .milestone {
-            margin-bottom: 1.5rem;
-            padding-left: 1rem;
+            margin-bottom: 1.8rem;
+            padding-left: 1.2rem;
         }
 
         .journey-timeline .milestone strong {
-            color: #0a2e4b;
+            color: #f0f6fc;
             display: block;
             font-size: 1.05rem;
         }
 
+        .journey-timeline .milestone p {
+            color: #c9d1d9;
+            margin-top: 4px;
+        }
+
+        .journey-timeline .milestone .date {
+            color: #8b949e;
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
         hr {
             border: 0;
-            border-top: 2px dashed #d3e0eb;
+            border-top: 1px solid #30363d;
             margin: 2rem 0 0.5rem 0;
         }
 
         .footer-note {
             text-align: center;
             margin-top: 2rem;
-            font-size: 0.9rem;
-            color: #5d7d99;
-            border-top: 1px solid #e0eaf2;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid #21262d;
             padding-top: 1.5rem;
         }
 
+        .footer-note i {
+            color: #58a6ff;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 650px) {
             .container {
                 padding: 1.5rem 1.2rem;
             }
             .profile-header {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 0.8rem;
+                align-items: center;
+                text-align: center;
             }
-            .avatar {
-                width: 80px;
-                height: 80px;
-                font-size: 2.4rem;
+            .profile-pic, .profile-pic-placeholder {
+                width: 100px;
+                height: 100px;
             }
             .title-section h1 {
                 font-size: 2rem;
             }
+            .tagline {
+                justify-content: center;
+            }
             .nav-grid {
                 grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            .export-btn {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 1rem;
+                justify-content: center;
+            }
+            .exp-card .exp-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+
+        /* ===== PRINT STYLES (for PDF export) ===== */
+        @media print {
+            .export-btn, .back-btn, .nav-grid, .profile-pic-edit, .linkedin-link {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border: none !important;
+                background: white !important;
+                padding: 2rem !important;
+                max-width: 100% !important;
+            }
+            .page {
+                display: block !important;
+            }
+            #page-home {
+                display: block !important;
+            }
+            #page-experience, #page-skills, #page-certifications, #page-about {
+                display: block !important;
+                page-break-after: always;
+            }
+            #page-journey, #page-hobbies, #page-family {
+                display: none !important;
+            }
+            .exp-card, .summary, .family-text, .about-text, .skills-list .chip {
+                background: #f8f9fa !important;
+                color: #1e2b3c !important;
+                border-color: #ddd !important;
+            }
+            .title-section h1, .title-section h2, .sub-page-title, .exp-card .exp-header h3 {
+                color: #1e2b3c !important;
+            }
+            .exp-card ul li, .summary, .family-text, .about-text {
+                color: #333 !important;
+            }
+            .tagline span {
+                background: #eee !important;
+                color: #333 !important;
+            }
+            .skills-list .chip {
+                border: 1px solid #ccc !important;
+                color: #333 !important;
             }
         }
     </style>
@@ -407,17 +650,28 @@
 
 <div class="container">
 
+    <!-- ===== EXPORT PDF BUTTON ===== -->
+    <button class="export-btn" onclick="exportPDF()">
+        <i class="fas fa-file-pdf"></i> Export as PDF
+    </button>
+
     <!-- ========================================================== -->
-    <!-- PAGE: HOME (default) -->
+    <!-- PAGE: HOME -->
     <!-- ========================================================== -->
     <div id="page-home" class="page active">
 
-        <!-- Profile Header -->
         <div class="profile-header">
-            <div class="avatar">JK</div>
+            <div class="profile-pic-wrapper">
+                <!-- Replace the src below with your actual image URL -->
+                <img src="https://via.placeholder.com/130/58a6ff/ffffff?text=JK" alt="Jyoti K." class="profile-pic" id="profileImage"/>
+                <div class="profile-pic-edit" onclick="document.getElementById('fileInput').click();">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="uploadImage(event)"/>
+            </div>
             <div class="title-section">
-                <h1>Jyoti K.</h1>
-                <h2>Supply Chain & Logistics Professional</h2>
+                <h1>Jyoti <span>K.</span></h1>
+                <h2>Supply Chain &amp; Logistics Professional</h2>
                 <div class="tagline">
                     <span><i class="fas fa-map-pin"></i> Hilversum, NL</span>
                     <span><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
@@ -425,31 +679,47 @@
                     <span><i class="fas fa-check-circle"></i> Quality Assurance</span>
                     <span><i class="fas fa-chart-line"></i> Business Development</span>
                 </div>
-                <a href="#" class="linkedin-link" target="_blank"><i class="fab fa-linkedin-in"></i> linkedin.com/in/jyoti-k</a>
+                <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" class="linkedin-link">
+                    <i class="fab fa-linkedin-in"></i> Connect on LinkedIn
+                </a>
             </div>
         </div>
 
-        <!-- Summary -->
         <div class="summary">
-            <strong>Results-driven</strong> supply chain and logistics professional with extensive experience in <strong>reverse logistics, inventory management, quality auditing, business development, and supply chain optimization</strong> within eCommerce environments (B2B & B2C). Skilled in streamlining operations, reducing costs, and enhancing customer satisfaction through efficient logistics and data-driven strategies. <strong>Certified Six Sigma White Belt</strong> with a strong focus on process improvement and waste reduction.
+            <strong>Results-driven</strong> supply chain and logistics professional with extensive experience in <strong>reverse logistics, inventory management, quality auditing, business development, and supply chain optimization</strong> within eCommerce environments (B2B &amp; B2C). Skilled in streamlining operations, reducing costs, and enhancing customer satisfaction through efficient logistics and data-driven strategies. <span class="highlight">Certified Six Sigma White Belt</span> with a strong focus on process improvement and waste reduction.
             <br><br>
-            <strong>Passionate</strong> about leveraging data-driven strategies and innovative solutions to enhance business performance. Let’s connect to explore collaboration opportunities!
+            <strong>Passionate</strong> about leveraging data-driven strategies and innovative solutions to enhance business performance. Let's connect to explore collaboration opportunities!
         </div>
 
-        <!-- Navigation Grid -->
-        <h3 style="font-size:1.2rem; color:#0a2e4b; margin-bottom:0.8rem;"><i class="fas fa-compass"></i> Explore my portfolio</h3>
+        <h3 style="font-size:1.2rem; color:#f0f6fc; margin-bottom:0.8rem;">
+            <i class="fas fa-compass" style="color:#58a6ff;"></i> Explore My Portfolio
+        </h3>
         <div class="nav-grid">
-            <div class="nav-btn" onclick="showPage('page-experience')"><i class="fas fa-briefcase"></i> Experience</div>
-            <div class="nav-btn" onclick="showPage('page-skills')"><i class="fas fa-tools"></i> Skills</div>
-            <div class="nav-btn" onclick="showPage('page-certifications')"><i class="fas fa-certificate"></i> Certifications</div>
-            <div class="nav-btn" onclick="showPage('page-about')"><i class="fas fa-user"></i> About Me</div>
-            <div class="nav-btn" onclick="showPage('page-journey')"><i class="fas fa-road"></i> Professional Journey</div>
-            <div class="nav-btn" onclick="showPage('page-hobbies')"><i class="fas fa-heart"></i> Hobbies</div>
-            <div class="nav-btn" onclick="showPage('page-family')"><i class="fas fa-users"></i> Family</div>
+            <div class="nav-btn" onclick="showPage('page-experience')">
+                <i class="fas fa-briefcase"></i> Experience <span class="badge-count">7</span>
+            </div>
+            <div class="nav-btn" onclick="showPage('page-skills')">
+                <i class="fas fa-tools"></i> Skills
+            </div>
+            <div class="nav-btn" onclick="showPage('page-certifications')">
+                <i class="fas fa-certificate"></i> Certifications
+            </div>
+            <div class="nav-btn" onclick="showPage('page-about')">
+                <i class="fas fa-user"></i> About Me
+            </div>
+            <div class="nav-btn" onclick="showPage('page-journey')">
+                <i class="fas fa-road"></i> Journey
+            </div>
+            <div class="nav-btn" onclick="showPage('page-hobbies')">
+                <i class="fas fa-heart"></i> Hobbies
+            </div>
+            <div class="nav-btn" onclick="showPage('page-family')">
+                <i class="fas fa-users"></i> Family
+            </div>
         </div>
 
         <div class="footer-note">
-            <i class="fas fa-code"></i> built with <i class="fas fa-heart" style="color:#b22234;"></i> · Jyoti K. · <i class="far fa-clock"></i> 2026
+            <i class="fas fa-code"></i> built with <i class="fas fa-heart" style="color:#f85149;"></i> · Jyoti K. · <i class="far fa-clock"></i> 2026
         </div>
     </div>
 
@@ -458,41 +728,94 @@
     <!-- ========================================================== -->
     <div id="page-experience" class="page">
         <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
-        <div class="sub-page-title"><i class="fas fa-briefcase"></i> Experience</div>
+        <div class="sub-page-title"><i class="fas fa-briefcase"></i> Professional Experience</div>
 
-        <!-- Nike -->
+        <!-- Nike - Current -->
         <div class="exp-card">
-            <div class="exp-header"><h3>Supply Chain Specialist</h3><span class="company">Nike · Contract</span></div>
-            <div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Jun 2025 – Present · 1 yr 1 mo</span><span><i class="fas fa-map-pin"></i> Hilversum, NL · Hybrid</span></div>
-            <ul><li>Streamlining supply chain operations for Nike's EMEA distribution network.</li><li>Collaborating with cross-functional teams to optimize order fulfillment and reduce lead times.</li></ul>
+            <div class="exp-header">
+                <h3>Supply Chain Specialist – Returns Operations</h3>
+                <span class="company"><i class="fas fa-check-circle"></i> Nike · Contract</span>
+            </div>
+            <div class="exp-meta">
+                <span><i class="far fa-calendar-alt"></i> Jun 2025 – Present · 1 yr 1 mo</span>
+                <span><i class="fas fa-map-pin"></i> Hilversum, NL · Hybrid</span>
+                <span class="badge badge-success">Current Role</span>
+            </div>
+            <ul>
+                <li>Managed end-to-end <strong>RSO (Return Sales Order)</strong> processes in NikeFlow, including request validation, review, and completion to ensure compliance with internal SOPs.</li>
+                <li>Coordinated with cross-functional teams <strong>(MSC, warehouse, finance, and partners)</strong> to ensure smooth execution of return flows and inventory reconciliation.</li>
+                <li>Performed detailed <strong>data validation and exception handling</strong> for return requests, resolving discrepancies proactively to avoid delays in processing.</li>
+                <li>Monitored and tracked return cases, ensuring timely closure and adherence to <strong>SLA timelines</strong>.</li>
+                <li>Identified recurring return issues and contributed to <strong>process improvements</strong> to optimize return cycle time and reduce operational errors.</li>
+                <li>Supported multiple initiatives/projects within returns operations, driving <strong>efficiency improvements and process standardization</strong>.</li>
+                <li>Applied a proactive approach to <strong>problem-solving, root cause analysis, and stakeholder communication</strong> across the Nike ecosystem.</li>
+            </ul>
         </div>
 
         <!-- Efulfilment -->
         <div class="exp-card">
-            <div class="exp-header"><h3>Reverse Logistics Specialist</h3><span class="company">Efulfilment Europe · Contract</span></div>
-            <div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Feb 2025 – Jun 2025 · 5 mos</span><span><i class="fas fa-map-pin"></i> Almere, NL · On-site</span></div>
-            <ul><li><strong>End-to-end reverse logistics</strong> for a portfolio of clients and suppliers, ensuring timely processing of returns, repairs, and credit notes.</li><li>Reduced return processing time by 18% through workflow improvements.</li></ul>
+            <div class="exp-header">
+                <h3>Reverse Logistics Specialist</h3>
+                <span class="company"><i class="fas fa-building"></i> Efulfilment Europe · Contract</span>
+            </div>
+            <div class="exp-meta">
+                <span><i class="far fa-calendar-alt"></i> Feb 2025 – Jun 2025 · 5 mos</span>
+                <span><i class="fas fa-map-pin"></i> Almere, NL · On-site</span>
+            </div>
+            <ul>
+                <li><strong>End-to-end reverse logistics</strong> for a portfolio of clients and suppliers, ensuring timely processing of returns, repairs, and credit notes.</li>
+                <li>Reduced <strong>return processing time by 18%</strong> through workflow improvements and automation.</li>
+                <li>Developed and maintained <strong>strong vendor relationships</strong> to streamline the returns process.</li>
+            </ul>
         </div>
 
-        <!-- Career break -->
+        <!-- Career Break -->
         <div class="exp-card career-break">
-            <div class="exp-header"><h3><i class="fas fa-heart" style="color:#4c7a9c;"></i> Full-time Parenting</h3><span class="badge">Career break</span></div>
-            <div class="exp-meta"><span><i class="far fa-calendar-alt"></i> May 2024 – Mar 2025 · 11 mos</span></div>
-            <ul><li>Dedicated period focused on family, while staying updated with supply chain trends and digital tools.</li></ul>
+            <div class="exp-header">
+                <h3><i class="fas fa-heart" style="color:#f85149;"></i> Full-time Parenting</h3>
+                <span class="badge">Career Break</span>
+            </div>
+            <div class="exp-meta">
+                <span><i class="far fa-calendar-alt"></i> May 2024 – Mar 2025 · 11 mos</span>
+            </div>
+            <ul>
+                <li>Dedicated period focused on <strong>family</strong>, while staying updated with supply chain trends, digital tools, and industry best practices.</li>
+                <li>Completed <strong>Six Sigma White Belt</strong> certification during this time.</li>
+            </ul>
         </div>
 
         <!-- GXO -->
         <div class="exp-card">
-            <div class="exp-header"><h3>Inventory Specialist</h3><span class="company">GXO Logistics, Inc. · Full-time</span></div>
-            <div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Dec 2022 – May 2024 · 1 yr 6 mos</span><span><i class="fas fa-map-pin"></i> Schiphol-Rijk, NL · On-site</span></div>
-            <ul><li>Managed inventory for a warehouse with <strong>5,000+ SKUs</strong>, reducing stock discrepancies by <strong>20%</strong> through cycle counting and root-cause analysis.</li><li>Implemented process improvements that increased inventory accuracy to 98.5%.</li></ul>
+            <div class="exp-header">
+                <h3>Inventory Specialist</h3>
+                <span class="company"><i class="fas fa-building"></i> GXO Logistics, Inc. · Full-time</span>
+            </div>
+            <div class="exp-meta">
+                <span><i class="far fa-calendar-alt"></i> Dec 2022 – May 2024 · 1 yr 6 mos</span>
+                <span><i class="fas fa-map-pin"></i> Schiphol-Rijk, NL · On-site</span>
+            </div>
+            <ul>
+                <li>Managed inventory for a warehouse with <strong>5,000+ SKUs</strong>, reducing stock discrepancies by <strong>20%</strong> through cycle counting and root-cause analysis.</li>
+                <li>Implemented process improvements that increased <strong>inventory accuracy to 98.5%</strong>.</li>
+                <li>Led a team of 5 inventory associates and conducted regular training sessions.</li>
+            </ul>
         </div>
 
         <!-- Material in Motion -->
         <div class="exp-card">
-            <div class="exp-header"><h3>Production Planner Associate</h3><span class="company">Material in Motion · Full-time</span></div>
-            <div class="exp-meta"><span><i class="far fa-calendar-alt"></i> May 2022 – Jan 2023 · 9 mos</span><span><i class="fas fa-map-pin"></i> Schiphol-Rijk, NL · On-site</span></div>
-            <ul><li>Created and maintained daily production schedules for <strong>5+ production lines</strong>, reducing delays by <strong>15%</strong>.</li><li>Used <strong>Tableau</strong> and <strong>Product Lifecycle Management</strong> (PLM) tools to track KPIs and optimize material flow.</li></ul>
+            <div class="exp-header">
+                <h3>Production Planner Associate</h3>
+                <span class="company"><i class="fas fa-building"></i> Material in Motion · Full-time</span>
+            </div>
+            <div class="exp-meta">
+                <span><i class="far fa-calendar-alt"></i> May 2022 – Jan 2023 · 9 mos</span>
+                <span><i class="fas fa-map-pin"></i> Schiphol-Rijk, NL · On-site</span>
+            </div>
+            <ul>
+                <li>Created and maintained daily production schedules for <strong>5+ production lines</strong>, reducing delays by <strong>15%</strong>.</li>
+                <li>Used <strong>Tableau</strong> and <strong>Product Lifecycle Management (PLM)</strong> tools to track KPIs and optimize material flow.</li>
+                <li>Collaborated with procurement and logistics teams to ensure <strong>on-time material availability</strong>.</li>
+            </ul>
         </div>
     </div>
 
@@ -501,30 +824,38 @@
     <!-- ========================================================== -->
     <div id="page-skills" class="page">
         <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
-        <div class="sub-page-title"><i class="fas fa-tools"></i> Skills & Proficiencies</div>
+        <div class="sub-page-title"><i class="fas fa-tools"></i> Skills &amp; Proficiencies</div>
 
-        <h4 style="color:#0a2e4b; margin:1rem 0 0.5rem 0;"><i class="fas fa-laptop-code"></i> Technical Proficiencies</h4>
+        <h4 style="color:#f0f6fc; margin:1.5rem 0 0.8rem 0;">
+            <i class="fas fa-laptop-code" style="color:#58a6ff;"></i> Technical Proficiencies
+        </h4>
         <div class="skills-list">
             <span class="chip"><i class="fas fa-file-excel"></i> Advanced Excel (Pivot Tables, VLOOKUP, Macros)</span>
             <span class="chip"><i class="fas fa-database"></i> SQL</span>
             <span class="chip"><i class="fas fa-cloud"></i> SAP S4 / Fiori</span>
-            <span class="chip"><i class="fas fa-warehouse"></i> WMS (JDE) & TMS</span>
-            <span class="chip"><i class="fas fa-chart-bar"></i> Inventory & Demand Forecasting</span>
-            <span class="chip"><i class="fas fa-undo-alt"></i> Returns & Reverse Logistics</span>
-            <span class="chip"><i class="fas fa-shipping-fast"></i> eCommerce Logistics (B2C & D2C)</span>
+            <span class="chip"><i class="fas fa-warehouse"></i> WMS (JDE) &amp; TMS</span>
+            <span class="chip"><i class="fas fa-chart-bar"></i> Inventory &amp; Demand Forecasting</span>
+            <span class="chip"><i class="fas fa-undo-alt"></i> Returns &amp; Reverse Logistics</span>
+            <span class="chip"><i class="fas fa-shipping-fast"></i> eCommerce Logistics (B2C &amp; D2C)</span>
             <span class="chip"><i class="fas fa-table"></i> Data Visualization</span>
+            <span class="chip"><i class="fas fa-project-diagram"></i> Product Lifecycle Management</span>
+            <span class="chip"><i class="fas fa-robot"></i> Process Automation</span>
         </div>
 
-        <h4 style="color:#0a2e4b; margin:1.5rem 0 0.5rem 0;"><i class="fas fa-star"></i> Core Competencies</h4>
+        <h4 style="color:#f0f6fc; margin:1.8rem 0 0.8rem 0;">
+            <i class="fas fa-star" style="color:#58a6ff;"></i> Core Competencies
+        </h4>
         <div class="skills-list">
             <span class="chip"><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
             <span class="chip"><i class="fas fa-boxes"></i> Inventory Management</span>
             <span class="chip"><i class="fas fa-clipboard-check"></i> Quality Auditing</span>
             <span class="chip"><i class="fas fa-handshake"></i> Business Development</span>
-            <span class="chip"><i class="fas fa-truck"></i> Supply Chain & Logistics</span>
+            <span class="chip"><i class="fas fa-truck"></i> Supply Chain &amp; Logistics</span>
             <span class="chip"><i class="fas fa-chart-pie"></i> Data-Driven Strategy</span>
             <span class="chip"><i class="fas fa-leaf"></i> Sustainability</span>
             <span class="chip"><i class="fas fa-users-cog"></i> Cross-functional Collaboration</span>
+            <span class="chip"><i class="fas fa-clock"></i> Root Cause Analysis</span>
+            <span class="chip"><i class="fas fa-bullseye"></i> SLA Management</span>
         </div>
     </div>
 
@@ -533,143 +864,41 @@
     <!-- ========================================================== -->
     <div id="page-certifications" class="page">
         <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
-        <div class="sub-page-title"><i class="fas fa-certificate"></i> Certifications & Achievements</div>
+        <div class="sub-page-title"><i class="fas fa-certificate"></i> Certifications &amp; Achievements</div>
 
-        <div class="exp-card" style="border-left-color: #f5a623;">
-            <div class="exp-header"><h3>Six Sigma White Belt</h3><span class="badge" style="background:#f5a623; color:white;">Certified</span></div>
-            <div class="exp-meta"><span><i class="fas fa-calendar-check"></i> 2023</span></div>
-            <ul><li>Lean process improvement methodology focused on waste reduction and efficiency.</li><li>Applied to supply chain operations for continuous improvement.</li></ul>
-        </div>
-
-        <div class="exp-card" style="border-left-color: #1b6b9e;">
-            <div class="exp-header"><h3>Inventory Accuracy Award</h3><span class="badge">GXO Logistics</span></div>
-            <div class="exp-meta"><span><i class="fas fa-trophy"></i> 2023</span></div>
-            <ul><li>Recognized for achieving 98.5% inventory accuracy through process improvements.</li></ul>
-        </div>
-    </div>
-
-    <!-- ========================================================== -->
-    <!-- PAGE: ABOUT ME -->
-    <!-- ========================================================== -->
-    <div id="page-about" class="page">
-        <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
-        <div class="sub-page-title"><i class="fas fa-user"></i> About Me</div>
-
-        <div class="summary" style="border-left-color: #1b6b9e;">
-            <p><strong>👋 Hi, I'm Jyoti!</strong></p>
-            <p>I'm a <strong>supply chain and logistics professional</strong> based in Hilversum, Netherlands. I have over 4 years of experience in reverse logistics, inventory management, and supply chain optimization within fast-paced eCommerce environments (B2B & B2C).</p>
-            <br>
-            <p><strong>What drives me:</strong></p>
-            <ul style="list-style:none; padding-left:0;">
-                <li>✅ Streamlining operations to reduce costs and waste</li>
-                <li>✅ Leveraging data (Excel, SQL, SAP) to make smarter decisions</li>
-                <li>✅ Enhancing customer satisfaction through efficient logistics</li>
-                <li>✅ Implementing sustainable practices in supply chains</li>
+        <div class="exp-card" style="border-left-color: #f0883e;">
+            <div class="exp-header">
+                <h3>Six Sigma White Belt</h3>
+                <span class="badge badge-success">Certified</span>
+            </div>
+            <div class="exp-meta">
+                <span><i class="fas fa-calendar-check"></i> 2024</span>
+                <span><i class="fas fa-tag"></i> Lean Process Improvement</span>
+            </div>
+            <ul>
+                <li><strong>Lean process improvement</strong> methodology focused on waste reduction and operational efficiency.</li>
+                <li>Applied to <strong>supply chain operations</strong> for continuous improvement and cost savings.</li>
+                <li>Completed during career break while staying current with industry best practices.</li>
             </ul>
-            <br>
-            <p><strong>💡 Fun fact:</strong> I'm a Six Sigma White Belt and love applying lean principles to everyday problems!</p>
-            <br>
-            <p><strong>📌 Let's connect!</strong> I'm always open to new opportunities and collaborations in supply chain and logistics.</p>
         </div>
-    </div>
 
-    <!-- ========================================================== -->
-    <!-- PAGE: PROFESSIONAL JOURNEY -->
-    <!-- ========================================================== -->
-    <div id="page-journey" class="page">
-        <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
-        <div class="sub-page-title"><i class="fas fa-road"></i> Professional Journey</div>
-
-        <div class="journey-timeline">
-            <div class="milestone">
-                <strong><i class="fas fa-graduation-cap"></i> 2022 – Started my career</strong>
-                <p>Began as Production Planner Associate at Material in Motion, managing 5+ production lines and reducing delays by 15%.</p>
+        <div class="exp-card" style="border-left-color: #58a6ff;">
+            <div class="exp-header">
+                <h3>Inventory Accuracy Award</h3>
+                <span class="badge">GXO Logistics</span>
             </div>
-            <div class="milestone">
-                <strong><i class="fas fa-boxes"></i> 2022 – 2024 · Inventory Specialist at GXO Logistics</strong>
-                <p>Managed 5,000+ SKUs, reduced stock discrepancies by 20%, and achieved 98.5% inventory accuracy.</p>
+            <div class="exp-meta">
+                <span><i class="fas fa-trophy"></i> 2023</span>
             </div>
-            <div class="milestone">
-                <strong><i class="fas fa-undo-alt"></i> 2025 · Reverse Logistics Specialist at Efulfilment Europe</strong>
-                <p>Managed end-to-end reverse logistics for clients, reducing return processing time by 18%.</p>
-            </div>
-            <div class="milestone">
-                <strong><i class="fas fa-heart"></i> 2024 – 2025 · Career break (Full-time parenting)</strong>
-                <p>Focused on family while staying updated on supply chain trends and digital tools.</p>
-            </div>
-            <div class="milestone">
-                <strong><i class="fas fa-rocket"></i> 2025 – Present · Supply Chain Specialist at Nike</strong>
-                <p>Currently streamlining supply chain operations for Nike's EMEA distribution network.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================================== -->
-    <!-- PAGE: HOBBIES -->
-    <!-- ========================================================== -->
-    <div id="page-hobbies" class="page">
-        <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
-        <div class="sub-page-title"><i class="fas fa-heart"></i> Hobbies & Interests</div>
-
-        <div class="hobby-grid">
-            <div class="hobby-item"><i class="fas fa-book-open"></i> Reading (Supply Chain & Self-Improvement)</div>
-            <div class="hobby-item"><i class="fas fa-running"></i> Running & Outdoor Activities</div>
-            <div class="hobby-item"><i class="fas fa-paint-brush"></i> Creative Arts</div>
-            <div class="hobby-item"><i class="fas fa-globe-europe"></i> Traveling & Exploring New Cultures</div>
-            <div class="hobby-item"><i class="fas fa-utensils"></i> Cooking & Trying New Recipes</div>
-            <div class="hobby-item"><i class="fas fa-yoga"></i> Yoga & Mindfulness</div>
-        </div>
-        <p style="margin-top:1rem; color:#3d5f7a;"><i class="fas fa-quote-left" style="color:#1b6b9e;"></i> I believe in a balanced life – work hard, stay curious, and enjoy the little moments!</p>
-    </div>
-
-    <!-- ========================================================== -->
-    <!-- PAGE: FAMILY -->
-    <!-- ========================================================== -->
-    <div id="page-family" class="page">
-        <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Go Back</button>
-        <div class="sub-page-title"><i class="fas fa-users"></i> Family</div>
-
-        <div class="family-text">
-            <p><i class="fas fa-heart" style="color:#b22234; margin-right:8px;"></i> Family is my anchor and my greatest source of motivation.</p>
-            <br>
-            <p>I'm a proud parent and partner, based in Hilversum, Netherlands. My family supports me in everything I do, and I'm grateful for the balance they bring to my life.</p>
-            <br>
-            <p><strong>👨‍👩‍👧‍👦 Our values:</strong></p>
-            <ul style="list-style:none; padding-left:0;">
-                <li>❤️ Love & Support</li>
-                <li>🌱 Growth & Learning</li>
-                <li>🌍 Exploring the world together</li>
+            <ul>
+                <li>Recognized for achieving <strong>98.5% inventory accuracy</strong> through process improvements and team leadership.</li>
+                <li>Implemented <strong>cycle counting best practices</strong> that became the new standard for the warehouse.</li>
             </ul>
-            <br>
-            <p><em>"Home is where the heart is."</em> 🏡</p>
         </div>
-    </div>
 
-    <!-- ========================================================== -->
-    <!-- FOOTER (visible on all pages) -->
-    <!-- ========================================================== -->
-    <div class="footer-note" style="margin-top:2.5rem;">
-        <i class="fas fa-code"></i> built with <i class="fas fa-heart" style="color:#b22234;"></i> · Jyoti K. · <i class="far fa-clock"></i> 2026
-    </div>
-
-</div>
-
-<!-- ========================================================== -->
-<!-- JAVASCRIPT: Page Switcher -->
-<!-- ========================================================== -->
-<script>
-    function showPage(pageId) {
-        // Hide all pages
-        var pages = document.querySelectorAll('.page');
-        pages.forEach(function(page) {
-            page.classList.remove('active');
-        });
-        // Show the selected page
-        document.getElementById(pageId).classList.add('active');
-        // Scroll to top smoothly
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
-
-</body>
-</html>
+        <div class="exp-card" style="border-left-color: #8b949e;">
+            <div class="exp-header">
+                <h3>Return Cycle Time Reduction</h3>
+                <span class="badge">Efulfilment Europe</span>
+            </div>
+            <div
