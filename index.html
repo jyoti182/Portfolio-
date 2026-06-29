@@ -1,259 +1,294 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jyoti K. · Supply Chain</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e6edf3;padding:1.5rem;min-height:100vh}
-        .container{max-width:1100px;margin:0 auto;background:#12121a;border-radius:28px;padding:2rem 2.5rem;border:1px solid #2a1a3a;position:relative}
-        .export-btn{position:absolute;top:1.2rem;right:1.8rem;background:#1a1a2e;border:1px solid #2a1a3a;color:#f0f6fc;padding:.4rem 1.2rem;border-radius:40px;cursor:pointer;font-weight:600;transition:.3s;display:flex;align-items:center;gap:6px;font-size:.85rem}
-        .export-btn:hover{background:#2a1a3a;border-color:#a855f7;color:#a855f7}
-        .page{display:none;animation:fadeIn .3s ease}
-        .page.active{display:block}
-        @keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
-        .back-btn{background:#1a1a2e;border:1px solid #2a1a3a;padding:.4rem 1.2rem;border-radius:40px;color:#f0f6fc;cursor:pointer;transition:.3s;margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.9rem}
-        .back-btn:hover{background:#2a1a3a;border-color:#a855f7;color:#a855f7}
-        .home-hero{display:flex;flex-wrap:wrap;align-items:center;gap:2.5rem;padding:.5rem 0 1.5rem}
-        .home-hero .content{flex:1;min-width:260px}
-        .home-hero .content .greeting{font-size:.9rem;color:#a855f7;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-        .home-hero .content h1{font-size:2.8rem;font-weight:800;color:#f0f6fc;line-height:1.2;margin:.3rem 0}
-        .home-hero .content h1 span{color:#a855f7}
-        .home-hero .content h2{font-size:1.2rem;font-weight:400;color:#8b949e;margin-bottom:.8rem}
-        .home-hero .content p{color:#c9d1d9;font-size:.95rem;line-height:1.7;max-width:480px}
-        .btn-primary{background:#a855f7;color:#fff;padding:.6rem 1.8rem;border-radius:40px;text-decoration:none;font-weight:600;transition:.3s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-size:.9rem}
-        .btn-primary:hover{background:#9333ea;transform:scale(1.03);box-shadow:0 0 30px rgba(168,85,247,0.25)}
-        .btn-outline{background:transparent;border:2px solid #2a1a3a;color:#f0f6fc;padding:.6rem 1.8rem;border-radius:40px;text-decoration:none;font-weight:600;transition:.3s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:.9rem}
-        .btn-outline:hover{border-color:#a855f7;color:#a855f7}
-        .home-hero .content .btn-group{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.2rem}
-        .profile-pic{width:160px;height:160px;border-radius:50%;object-fit:cover;border:4px solid #a855f7;box-shadow:0 0 40px rgba(168,85,247,0.12);background:#1a1a2e}
-        .profile-pic-wrapper{position:relative;display:inline-block}
-        .profile-pic-edit{position:absolute;bottom:2px;right:2px;background:#1a1a2e;border:2px solid #a855f7;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#a855f7;transition:.3s;font-size:.7rem}
-        .profile-pic-edit:hover{background:#2a1a3a;transform:scale(1.1)}
-        .stats{display:flex;gap:2rem;margin-top:1.2rem;flex-wrap:wrap}
-        .stats .stat-item{text-align:center}
-        .stats .stat-item .number{font-size:1.6rem;font-weight:800;color:#a855f7}
-        .stats .stat-item .label{font-size:.75rem;color:#8b949e}
-        .nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.8rem;margin:2rem 0 1rem}
-        .nav-btn{background:#1a1a2e;border:1px solid #2a1a3a;border-radius:14px;padding:1.2rem .5rem;text-align:center;font-weight:600;color:#f0f6fc;cursor:pointer;transition:.3s;font-size:.85rem}
-        .nav-btn:hover{border-color:#a855f7;transform:translateY(-3px);box-shadow:0 8px 30px rgba(168,85,247,0.06)}
-        .nav-btn i{display:block;font-size:1.8rem;margin-bottom:5px;color:#a855f7}
-        .nav-btn .badge-count{background:#a855f7;color:#0a0a0f;font-size:.55rem;padding:.1rem .4rem;border-radius:20px;margin-left:3px}
-        .sub-page-title{font-size:1.8rem;font-weight:700;color:#f0f6fc;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
-        .sub-page-title i{color:#a855f7}
-        .exp-card{background:#1a1a2e;border-left:4px solid #a855f7;padding:1.2rem 1.5rem;margin-bottom:1.2rem;border-radius:14px;border:1px solid #2a1a3a}
-        .exp-card .exp-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline}
-        .exp-card .exp-header h3{font-size:1.1rem;color:#f0f6fc}
-        .exp-card .company{color:#8b949e;font-size:.85rem}
-        .exp-card .company i{color:#a855f7;margin-right:4px}
-        .exp-meta{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:.8rem;color:#8b949e;margin:.2rem 0 .6rem}
-        .exp-meta i{margin-right:4px;color:#a855f7}
-        .exp-card ul{list-style:none;padding-left:0}
-        .exp-card ul li{padding-left:1.4rem;position:relative;margin-bottom:.3rem;color:#c9d1d9;font-size:.88rem}
-        .exp-card ul li::before{content:"▹";color:#a855f7;position:absolute;left:0}
-        .exp-card ul li strong{color:#f0f6fc}
-        .badge{background:#2a1a3a;padding:.05rem .7rem;border-radius:30px;font-size:.65rem;font-weight:600;color:#8b949e;border:1px solid #2a1a3a}
-        .badge-success{background:#2a1a3a;color:#a855f7;border-color:#a855f7}
-        .badge-purple{background:#a855f7;color:#0a0a0f;border-color:#a855f7}
-        .career-break{border-left-color:#8b949e}
-        .skills-list{display:flex;flex-wrap:wrap;gap:.5rem .8rem;margin:.8rem 0}
-        .skills-list .chip{background:#1a1a2e;border:1px solid #2a1a3a;padding:.3rem 1rem;border-radius:40px;font-size:.8rem;color:#c9d1d9;transition:.3s}
-        .skills-list .chip:hover{border-color:#a855f7;color:#a855f7}
-        .skills-list .chip i{margin-right:5px;color:#a855f7}
-        .hobby-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.8rem;margin:1.2rem 0}
-        .hobby-item{background:#1a1a2e;padding:1rem;border-radius:14px;text-align:center;border:1px solid #2a1a3a;color:#c9d1d9;transition:.3s;font-size:.85rem}
-        .hobby-item:hover{border-color:#a855f7;transform:translateY(-3px)}
-        .hobby-item i{font-size:1.8rem;color:#a855f7;display:block;margin-bottom:4px}
-        .family-text,.about-text{background:#1a1a2e;padding:1.5rem 1.8rem;border-radius:16px;border-left:4px solid #a855f7;color:#c9d1d9}
-        .family-text strong,.about-text strong{color:#f0f6fc}
-        .journey-timeline{padding-left:1.2rem;border-left:3px solid #a855f7}
-        .journey-timeline .milestone{margin-bottom:1.5rem;padding-left:1rem}
-        .journey-timeline .milestone strong{color:#f0f6fc;display:block;font-size:1rem}
-        .journey-timeline .milestone p{color:#c9d1d9;font-size:.88rem}
-        .journey-timeline .milestone .date{color:#8b949e;font-size:.78rem}
-        .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-        hr{border:0;border-top:1px solid #2a1a3a;margin:1.5rem 0 .5rem}
-        .footer-note{text-align:center;margin-top:1.5rem;font-size:.78rem;color:#8b949e;border-top:1px solid #1a1a2e;padding-top:1.2rem}
-        .footer-note i{color:#a855f7}
-        @media(max-width:650px){.container{padding:1.2rem}.home-hero{flex-direction:column-reverse;text-align:center}.home-hero .content p{max-width:100%}.home-hero .content h1{font-size:2.2rem}.profile-pic{width:130px;height:130px}.btn-group{justify-content:center}.stats{justify-content:center}.nav-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}.export-btn{position:relative;top:0;right:0;margin-bottom:1rem;justify-content:center}.cert-grid{grid-template-columns:1fr}}
-        @media print{.export-btn,.back-btn,.nav-grid,.profile-pic-edit{display:none!important}body{background:#fff!important;padding:0!important}.container{box-shadow:none!important;border:none!important;background:#fff!important;padding:2rem!important}#page-home,#page-experience,#page-skills,#page-certifications,#page-about{display:block!important}#page-journey,#page-hobbies,#page-family{display:none!important}.exp-card{background:#f8f9fa!important;color:#1e2b3c!important}}
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jyoti K. · Supply Chain</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --purple: #a855f7;
+    --purple-dark: #7c3aed;
+    --purple-glow: rgba(168,85,247,0.35);
+    --bg: #0a0a0f;
+    --card: #111118;
+    --border: rgba(168,85,247,0.18);
+    --text: #e8e8f0;
+    --muted: #8888aa;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,15,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 56px;
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); }
+  .nav-logo span { color: var(--purple); }
+  .nav-links { display: flex; gap: 8px; }
+  .nav-links button {
+    background: none; border: none; color: var(--muted); font-size: 0.82rem;
+    cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: all .2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-links button:hover, .nav-links button.active { color: var(--purple); background: rgba(168,85,247,0.1); }
+
+  /* SCREENS */
+  .screen { display: none; min-height: 100vh; padding-top: 56px; }
+  .screen.active { display: block; }
+
+  /* ── HOME ── */
+  #home {
+    display: none; min-height: 100vh; padding-top: 56px;
+    background: radial-gradient(ellipse 80% 60% at 60% 30%, rgba(168,85,247,0.13) 0%, transparent 70%);
+    flex-direction: column;
+  }
+  #home.active { display: flex; align-items: center; justify-content: center; flex-direction: column; }
+  .home-inner {
+    max-width: 900px; width: 100%; margin: 0 auto;
+    padding: 40px 24px;
+    display: flex; align-items: center; gap: 48px; flex-wrap: wrap; justify-content: center;
+  }
+  .home-text { flex: 1; min-width: 260px; }
+  .home-tag {
+    display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--purple);
+    background: rgba(168,85,247,0.12); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .home-text h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.4rem);
+    color: var(--white); line-height: 1.15; margin-bottom: 8px;
+  }
+  .home-text h1 span { color: var(--purple); }
+  .home-text h2 { font-size: 1rem; font-weight: 400; color: var(--muted); margin-bottom: 18px; }
+  .home-text p { font-size: 0.93rem; color: var(--text); line-height: 1.7; margin-bottom: 8px; }
+  .home-text .tagline {
+    font-size: 0.88rem; color: var(--purple); font-style: italic;
+    margin: 10px 0 22px; padding-left: 12px; border-left: 2px solid var(--purple);
+  }
+  .home-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff; border: none; padding: 10px 22px; border-radius: 8px;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all .2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--purple-glow); }
+  .btn-outline {
+    background: none; border: 1px solid var(--border); color: var(--text);
+    padding: 10px 22px; border-radius: 8px; font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif;
+  }
+  .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+  .stats-row { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-n { font-size: 1.6rem; font-weight: 700; color: var(--purple); }
+  .stat-l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+  /* PHOTO CIRCLE */
+  .photo-wrap {
+    position: relative; width: 200px; height: 200px; flex-shrink: 0;
+    pointer-events: none; user-select: none;
+  }
+  .photo-glow {
+    position: absolute; inset: -18px;
+    background: radial-gradient(circle, rgba(168,85,247,0.5) 0%, rgba(124,58,237,0.25) 40%, transparent 70%);
+    border-radius: 50%; animation: pulse 3s ease-in-out infinite;
+  }
+  .photo-ring {
+    position: absolute; inset: -6px; border-radius: 50%;
+    border: 2px solid rgba(168,85,247,0.6);
+    box-shadow: 0 0 24px var(--purple-glow), inset 0 0 24px rgba(168,85,247,0.1);
+    animation: spin-ring 12s linear infinite;
+  }
+  .photo-circle {
+    position: relative; width: 200px; height: 200px; border-radius: 50%; overflow: hidden;
+    border: 3px solid var(--purple);
+    background: linear-gradient(135deg, #1a0a2e, #0f0f1a);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+  }
+  .photo-initials {
+    font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700;
+    color: var(--purple); letter-spacing: .05em;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+  @keyframes spin-ring {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* SECTION CARDS */
+  .section-wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--white);
+    margin-bottom: 24px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px; margin-bottom: 16px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .card:hover { border-color: rgba(168,85,247,0.4); box-shadow: 0 4px 20px rgba(168,85,247,0.08); }
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .card-title { font-size: 1rem; font-weight: 600; color: var(--white); }
+  .card-sub { font-size: 0.82rem; color: var(--purple); margin-top: 2px; }
+  .card-meta { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+  .badge {
+    font-size: 0.68rem; font-weight: 600; padding: 2px 9px; border-radius: 20px;
+    background: rgba(168,85,247,0.15); color: var(--purple); white-space: nowrap;
+    border: 1px solid rgba(168,85,247,0.3); flex-shrink: 0;
+  }
+  .badge.green { background: rgba(34,197,94,0.12); color: #4ade80; border-color: rgba(34,197,94,0.3); }
+  .card ul { margin-top: 12px; padding-left: 18px; }
+  .card ul li { font-size: 0.87rem; color: var(--text); line-height: 1.7; margin-bottom: 3px; }
+  .card ul li strong { color: var(--purple); }
+
+  /* SKILLS */
+  .skill-group { margin-bottom: 20px; }
+  .skill-group-title { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.22);
+    color: var(--text); font-size: 0.8rem; padding: 5px 13px; border-radius: 20px; transition: all .2s;
+  }
+  .skill-tag:hover { background: rgba(168,85,247,0.2); color: var(--purple); }
+  .skill-tag.highlight { background: rgba(168,85,247,0.18); color: var(--purple); font-weight: 600; }
+
+  /* ABOUT */
+  .about-block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; }
+  .about-block p { font-size: 0.9rem; line-height: 1.8; color: var(--text); margin-bottom: 10px; }
+  .about-block p:last-child { margin-bottom: 0; }
+  .about-block .label { font-size: 0.75rem; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+  .project-card {
+    background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.18);
+    border-radius: 10px; padding: 14px 16px; margin-top: 14px;
+  }
+  .project-card h4 { font-size: 0.88rem; font-weight: 600; color: var(--purple); margin-bottom: 6px; }
+  .project-card p { font-size: 0.84rem; line-height: 1.7; color: var(--text); margin: 0; }
+
+  /* JOURNEY */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--purple), transparent); }
+  .timeline-item { position: relative; margin-bottom: 28px; }
+  .timeline-dot { position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 8px var(--purple-glow); }
+  .timeline-year { font-size: 0.73rem; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+  .timeline-co { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+  .timeline-desc { font-size: 0.84rem; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+
+  /* HOBBIES */
+  .hobbies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+  .hobby-chip {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 10px; text-align: center; font-size: 0.85rem; color: var(--text);
+    transition: all .2s; cursor: default;
+  }
+  .hobby-chip:hover { border-color: var(--purple); color: var(--purple); transform: translateY(-2px); }
+  .hobby-chip .emoji { font-size: 1.4rem; display: block; margin-bottom: 6px; }
+
+  /* FAMILY */
+  .family-card {
+    background: linear-gradient(135deg, #13091f, #0e0a1a);
+    border: 1px solid rgba(168,85,247,0.3);
+    border-radius: 18px; padding: 28px 26px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .family-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168,85,247,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .family-emoji { font-size: 2.6rem; margin-bottom: 14px; display: block; }
+  .family-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 14px; }
+  .family-card p { font-size: 0.9rem; color: var(--text); line-height: 1.85; margin-bottom: 10px; position: relative; z-index: 1; }
+  .family-values { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 18px 0; }
+  .family-val {
+    background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.25);
+    color: var(--purple); font-size: 0.8rem; font-weight: 500;
+    padding: 6px 14px; border-radius: 20px;
+  }
+  .family-quote {
+    font-style: italic; color: var(--muted); font-size: 0.88rem;
+    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 20px; font-size: 0.75rem; color: var(--muted);
+    border-top: 1px solid var(--border); margin-top: 40px;
+  }
+
+  @media (max-width: 600px) {
+    .home-inner { flex-direction: column-reverse; align-items: center; text-align: center; gap: 28px; }
+    .stats-row { justify-content: center; }
+    .home-btns { justify-content: center; }
+    .tagline { text-align: left; }
+  }
+</style>
 </head>
 <body>
-<div class="container">
 
-<button class="export-btn" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+<nav>
+  <div class="nav-logo"><span>Jyoti</span> K.</div>
+  <div class="nav-links">
+    <button onclick="show('home')" class="active" id="nav-home">Home</button>
+    <button onclick="show('exp')" id="nav-exp">Experience</button>
+    <button onclick="show('edu')" id="nav-edu">Education</button>
+    <button onclick="show('skills')" id="nav-skills">Skills</button>
+    <button onclick="show('certs')" id="nav-certs">Certs</button>
+    <button onclick="show('about')" id="nav-about">About</button>
+    <button onclick="show('journey')" id="nav-journey">Journey</button>
+    <button onclick="show('hobbies')" id="nav-hobbies">Hobbies</button>
+    <button onclick="show('family')" id="nav-family">Family</button>
+  </div>
+  <style>
+    /* Scrollable nav on small screens */
+    .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+    .nav-links::-webkit-scrollbar { display: none; }
+  </style>
+</nav>
 
 <!-- HOME -->
-<div id="page-home" class="page active">
-    <div class="home-hero">
-        <div class="content">
-            <p class="greeting"><i class="fas fa-wave"></i> Hello, I'm</p>
-            <h1>Jyoti <span>K.</span></h1>
-            <h2>Supply Chain &amp; Logistics Professional</h2>
-            <p>Results-driven professional with <strong style="color:#a855f7">7+ years</strong> in reverse logistics, inventory, business development &amp; supply chain. <span style="color:#a855f7">Six Sigma White Belt</span> certified.</p>
-            <div class="btn-group">
-                <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" class="btn-primary"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-                <button class="btn-outline" onclick="showPage('page-about')"><i class="fas fa-user"></i> About</button>
-            </div>
-            <div class="stats">
-                <div class="stat-item"><div class="number">7+</div><div class="label">Years</div></div>
-                <div class="stat-item"><div class="number">5</div><div class="label">Companies</div></div>
-                <div class="stat-item"><div class="number">9</div><div class="label">Certifications</div></div>
-            </div>
-        </div>
-        <div class="profile-pic-wrapper">
-            <img src="https://via.placeholder.com/160/a855f7/ffffff?text=JK" alt="Jyoti" class="profile-pic" id="profileImage"/>
-            <div class="profile-pic-edit" onclick="document.getElementById('fileInput').click();"><i class="fas fa-camera"></i></div>
-            <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="uploadImage(event)"/>
-        </div>
+<section id="home" class="screen active">
+  <div class="home-inner">
+    <div class="home-text">
+      <div class="home-tag">Supply Chain · Logistics · Data</div>
+      <h1>Hello, I'm<br/><span>Jyoti K.</span></h1>
+      <h2>Supply Chain &amp; Logistics Professional · <span style="color:var(--purple)">Almere, Netherlands</span></h2>
+      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Almere is the Netherlands' newest city — a modern, diverse hub just 20 minutes from Amsterdam, known for its bold architecture and international community. It's where innovation meets a great quality of life.</p>
+      <p>Results-driven professional with <strong>7+ years</strong> in reverse logistics, inventory management, business development &amp; supply chain operations across Europe and Asia.</p>
+      <p>I am a <strong>people person</strong> who thrives in cross-functional teams — building strong relationships with colleagues, stakeholders, and partners is at the heart of how I work.</p>
+      <p>Deeply <strong>data-driven</strong> in my approach: I use data to uncover insights, drive decisions, and continuously improve processes. I genuinely enjoy working with data and turning numbers into action.</p>
+      <div class="tagline">Six Sigma White Belt certified · Continuous improvement mindset · Always learning.</div>
+      <div class="home-btns">
+        <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" style="text-decoration:none;">
+          <button class="btn-primary">LinkedIn →</button>
+        </a>
+        <button class="btn-outline" onclick="show('journey')">My Journey</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-n">7+</div><div class="stat-l">Years</div></div>
+        <div class="stat"><div class="stat-n">6</div><div class="stat-l">Companies</div></div>
+        <div class="stat"><div class="stat-n">9</div><div class="stat-l">Certifications</div></div>
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Countries</div></div>
+      </div>
     </div>
-    <div class="nav-grid">
-        <div class="nav-btn" onclick="showPage('page-experience')"><i class="fas fa-briefcase"></i> Exp <span class="badge-count">7</span></div>
-        <div class="nav-btn" onclick="showPage('page-skills')"><i class="fas fa-tools"></i> Skills</div>
-        <div class="nav-btn" onclick="showPage('page-certifications')"><i class="fas fa-certificate"></i> Certs <span class="badge-count">9</span></div>
-        <div class="nav-btn" onclick="showPage('page-about')"><i class="fas fa-user"></i> About</div>
-        <div class="nav-btn" onclick="showPage('page-journey')"><i class="fas fa-road"></i> Journey</div>
-        <div class="nav-btn" onclick="showPage('page-hobbies')"><i class="fas fa-heart"></i> Hobbies</div>
-        <div class="nav-btn" onclick="showPage('page-family')"><i class="fas fa-users"></i> Family</div>
-    </div>
-    <div class="footer-note"><i class="fas fa-code"></i> built with <i class="fas fa-heart" style="color:#a855f7"></i> · 2026</div>
-</div>
-
-<!-- EXPERIENCE -->
-<div id="page-experience" class="page">
-    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="sub-page-title"><i class="fas fa-briefcase"></i> Experience <span style="font-size:.9rem;color:#8b949e">(7)</span></div>
-    <div class="exp-card"><div class="exp-header"><h3>Supply Chain Specialist – Returns</h3><span class="company"><i class="fas fa-check-circle"></i> Nike · Contract</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Jun 2025 – Present</span><span><i class="fas fa-map-pin"></i> Hilversum</span><span class="badge badge-success">Current</span></div><ul><li>Managed <strong>RSO</strong> processes in NikeFlow</li><li>Coordinated with <strong>MSC, warehouse, finance</strong></li><li>Data validation &amp; exception handling</li><li>SLA compliance &amp; process improvements</li></ul></div>
-    <div class="exp-card"><div class="exp-header"><h3>Reverse Logistics Specialist</h3><span class="company"><i class="fas fa-building"></i> Efulfilment Europe · Contract</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Feb 2025 – Jun 2025</span><span><i class="fas fa-map-pin"></i> Almere</span></div><ul><li><strong>End-to-end reverse logistics</strong></li><li>Reduced processing time by <strong>18%</strong></li></ul></div>
-    <div class="exp-card career-break"><div class="exp-header"><h3><i class="fas fa-heart" style="color:#a855f7"></i> Full-time Parenting</h3><span class="badge">Break</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> May 2024 – Mar 2025</span></div><ul><li>Completed <strong>Six Sigma White Belt</strong></li></ul></div>
-    <div class="exp-card"><div class="exp-header"><h3>Inventory Specialist</h3><span class="company"><i class="fas fa-building"></i> GXO Logistics · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Dec 2022 – May 2024</span><span><i class="fas fa-map-pin"></i> Schiphol-Rijk</span></div><ul><li>Managed <strong>5,000+ SKUs</strong>, reduced discrepancies <strong>20%</strong></li><li>Achieved <strong>98.5% accuracy</strong></li></ul></div>
-    <div class="exp-card"><div class="exp-header"><h3>Production Planner Associate</h3><span class="company"><i class="fas fa-building"></i> Material in Motion · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> May 2022 – Jan 2023</span><span><i class="fas fa-map-pin"></i> Schiphol-Rijk</span></div><ul><li>Reduced delays by <strong>15%</strong> for 5+ lines</li><li><strong>SAP</strong> tracking, <strong>95%</strong> on-time fulfillment</li></ul></div>
-    <div class="exp-card"><div class="exp-header"><h3>Business Development Consultant</h3><span class="company"><i class="fas fa-building"></i> Techaxis, Inc · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Jul 2021 – Apr 2022</span><span><i class="fas fa-map-pin"></i> India · Remote</span></div><ul><li>Client acquisition &amp; revenue growth</li></ul></div>
-    <div class="exp-card"><div class="exp-header"><h3>Business Development Consultant</h3><span class="company"><i class="fas fa-building"></i> Levan IT · Full-time</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Jul 2020 – Jul 2021</span><span><i class="fas fa-map-pin"></i> Remote</span></div><ul><li>Customer service via email, phone, chat</li></ul></div>
-    <div class="exp-card"><div class="exp-header"><h3>Supply Chain Specialist</h3><span class="company"><i class="fas fa-building"></i> BBEX Logistics · Contract</span></div><div class="exp-meta"><span><i class="far fa-calendar-alt"></i> Sep 2017 – Jun 2020</span><span><i class="fas fa-map-pin"></i> India</span></div><ul><li>Demand forecasting, end-to-end supply chain</li></ul></div>
-</div>
-
-<!-- SKILLS -->
-<div id="page-skills" class="page">
-    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="sub-page-title"><i class="fas fa-tools"></i> Skills</div>
-    <h4 style="color:#f0f6fc;margin:.8rem 0 .4rem"><i class="fas fa-laptop-code" style="color:#a855f7"></i> Technical</h4>
-    <div class="skills-list">
-        <span class="chip"><i class="fas fa-file-excel"></i> Excel</span>
-        <span class="chip"><i class="fas fa-database"></i> SQL</span>
-        <span class="chip"><i class="fas fa-cloud"></i> SAP S4</span>
-        <span class="chip"><i class="fas fa-warehouse"></i> WMS/TMS</span>
-        <span class="chip"><i class="fas fa-chart-bar"></i> Forecasting</span>
-        <span class="chip"><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
-        <span class="chip"><i class="fas fa-table"></i> Tableau</span>
-        <span class="chip"><i class="fas fa-power-off"></i> Power BI</span>
-    </div>
-    <h4 style="color:#f0f6fc;margin:1.2rem 0 .4rem"><i class="fas fa-star" style="color:#a855f7"></i> Core</h4>
-    <div class="skills-list">
-        <span class="chip"><i class="fas fa-undo-alt"></i> Reverse Logistics</span>
-        <span class="chip"><i class="fas fa-boxes"></i> Inventory</span>
-        <span class="chip"><i class="fas fa-clipboard-check"></i> Quality</span>
-        <span class="chip"><i class="fas fa-handshake"></i> Business Dev</span>
-        <span class="chip"><i class="fas fa-truck"></i> Supply Chain</span>
-        <span class="chip"><i class="fas fa-chart-pie"></i> Data Strategy</span>
-        <span class="chip"><i class="fas fa-leaf"></i> Sustainability</span>
-        <span class="chip"><i class="fas fa-users-cog"></i> Collaboration</span>
-        <span class="chip"><i class="fas fa-bullseye"></i> Business Analysis</span>
-    </div>
-</div>
-
-<!-- CERTIFICATIONS -->
-<div id="page-certifications" class="page">
-    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="sub-page-title"><i class="fas fa-certificate"></i> Certs <span style="font-size:.9rem;color:#8b949e">(9)</span></div>
-    <div class="cert-grid">
-        <div class="exp-card"><div class="exp-header"><h3>CCBA Level 2</h3><span class="badge badge-purple">Active</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Jul 2024</span><span><i class="fas fa-id-card"></i> 730116</span></div><ul><li>Techcanvass · Business Analysis</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>Six Sigma White Belt</h3><span class="badge badge-success">Certified</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> 2024</span></div><ul><li>Lean process improvement</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>Tableau Desktop Certified</h3><span class="badge">Data Brio</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Feb 2021</span></div><ul><li>Data Science, AI &amp; GenAI</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>Analytics &amp; Visualization</h3><span class="badge">Data Brio</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Sep 2021</span></div><ul><li>R, Tableau, SQL, Excel</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>Financial Risk Analyst</h3><span class="badge">Great Learning</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Aug 2021</span></div><ul><li>Financial Reporting</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>Project Management</h3><span class="badge">Great Learning</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Feb 2024</span></div><ul><li>Project Delivery, Estimation</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>ChatGPT for Excel</h3><span class="badge">Great Learning</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Nov 2023</span></div><ul><li>Problem Solving, Analytics</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>Power BI Visualization</h3><span class="badge">Great Learning</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Dec 2022</span></div><ul><li>Gap Analysis, Analytics</li></ul></div>
-        <div class="exp-card"><div class="exp-header"><h3>ECBA</h3><span class="badge">Udemy</span></div><div class="exp-meta"><span><i class="fas fa-calendar-check"></i> Apr 2024</span></div><ul><li>Business Analytics, Planning</li></ul></div>
-    </div>
-</div>
-
-<!-- ABOUT -->
-<div id="page-about" class="page">
-    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="sub-page-title"><i class="fas fa-user"></i> About</div>
-    <div class="about-text">
-        <p><strong>👋 Hi, I'm Jyoti!</strong> Supply chain pro based in <strong>Hilversum, NL</strong> with <strong>7+ years</strong> experience.</p><br>
-        <p><strong style="color:#a855f7">🚀 What drives me:</strong></p>
-        <ul style="list-style:none;padding-left:1.5rem">
-            <li>✅ Streamlining operations</li>
-            <li>✅ Leveraging data (Excel, SQL, SAP, Tableau)</li>
-            <li>✅ Customer satisfaction</li>
-            <li>✅ Sustainability</li>
-        </ul><br>
-        <p><strong style="color:#a855f7">📌 Let's connect!</strong> <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" style="color:#a855f7;text-decoration:none">LinkedIn</a></p>
-    </div>
-</div>
-
-<!-- JOURNEY -->
-<div id="page-journey" class="page">
-    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="sub-page-title"><i class="fas fa-road"></i> Journey</div>
-    <div class="journey-timeline">
-        <div class="milestone"><strong><i class="fas fa-truck" style="color:#a855f7"></i> 2017–2020 · Supply Chain</strong><span class="date">BBEX Logistics</span><p>Demand forecasting, end-to-end coordination</p></div>
-        <div class="milestone"><strong><i class="fas fa-handshake" style="color:#a855f7"></i> 2020–2021 · Business Dev</strong><span class="date">Levan IT</span><p>Customer service, client relations</p></div>
-        <div class="milestone"><strong><i class="fas fa-chart-line" style="color:#a855f7"></i> 2021–2022 · Business Dev</strong><span class="date">Techaxis</span><p>Client acquisition, revenue growth</p></div>
-        <div class="milestone"><strong><i class="fas fa-boxes" style="color:#a855f7"></i> 2022–2024 · Inventory</strong><span class="date">GXO Logistics</span><p>5,000+ SKUs, 98.5% accuracy</p></div>
-        <div class="milestone"><strong><i class="fas fa-heart" style="color:#a855f7"></i> 2024–2025 · Career Break</strong><span class="date">Parenting</span><p>Six Sigma White Belt</p></div>
-        <div class="milestone"><strong><i class="fas fa-undo-alt" style="color:#a855f7"></i> 2025 · Reverse Logistics</strong><span class="date">Efulfilment</span><p>Reduced return time 18%</p></div>
-        <div class="milestone"><strong><i class="fas fa-rocket" style="color:#a855f7"></i> 2025–Present · Nike</strong><span class="date">Returns Operations</span><p>RSO processes in NikeFlow</p></div>
-    </div>
-</div>
-
-<!-- HOBBIES -->
-<div id="page-hobbies" class="page">
-    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="sub-page-title"><i class="fas fa-heart" style="color:#a855f7"></i> Hobbies</div>
-    <div class="hobby-grid">
-        <div class="hobby-item"><i class="fas fa-book-open"></i> Reading</div>
-        <div class="hobby-item"><i class="fas fa-running"></i> Running</div>
-        <div class="hobby-item"><i class="fas fa-paint-brush"></i> Arts</div>
-        <div class="hobby-item"><i class="fas fa-globe-europe"></i> Travel</div>
-        <div class="hobby-item"><i class="fas fa-utensils"></i> Cooking</div>
-        <div class="hobby-item"><i class="fas fa-yoga"></i> Yoga</div>
-        <div class="hobby-item"><i class="fas fa-tree"></i> Hiking</div>
-        <div class="hobby-item"><i class="fas fa-camera"></i> Photos</div>
-    </div>
-    <p style="text-align:center;color:#8b949e;margin-top:1.2rem"><i class="fas fa-quote-left" style="color:#a855f7"></i> Work hard, stay curious, enjoy moments!</p>
-</div>
-
-<!-- FAMILY -->
-<div id="page-family" class="page">
-    <button class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <div class="sub-page-title"><i class="fas fa-users"></i> Family</div>
-    <div class="family-text">
-        <p><i class="fas fa-heart" style="color:#a855f7"></i> Family is my <strong>anchor</strong>.</p><br>
-        <p>Proud <strong>parent</strong> &amp; <strong>partner</strong> in <strong>Hilversum, NL</strong>.</p><br>
-        <p><strong style="color:#a855f7">Values:</strong> ❤️ Love · 🌱 Growth · 🌍 Exploring · 🙏 Gratitude</p><br>
-        <p style="text-align:center;font-size:1.1rem;color:#f0f6fc"><em>"Home is where the heart is."</em> 🏡</p>
-    </div>
-</div>
-
-<hr>
-<div class="footer-note"><i class="fas fa-code"></i> built with <i class="fas fa-heart" style="color:#a855f7"></i> · Jyoti K. · 2026</div>
-</div>
-
-<script>
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
-function uploadImage(e){const f=e.target.files[0];if(f){const r=new FileReader();r.onload=function(e){document.getElementById('profileImage').src=e.target.result;localStorage.setItem('profileImage',e.target.result)};r.readAsDataURL(f)}}
-window.onload=function(){const img=localStorage.getItem('profileImage');if(img)document.getElementById('profileImage').src=img}
-function exportPDF(){const show=['page-home','page-experience','page-skills','page-certifications','page-about'];document.querySelectorAll('.page').forEach(p=>p.style.display='none');show.forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='block'});window.print();setTimeout(()=>{document.querySelectorAll('.page').forEach(p=>p.style.display='');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-home').classList.add('active')},1000)}
-</script>
-</body>
-</html>
+    <div class="photo-wrap">
+      <div class="photo-glow"></div>
+      <div class="photo-ring"></div>
+      <div class="photo-circle">
+        <img src="data:image/jpeg;base64,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
