@@ -6,239 +6,97 @@
 <title>Jyoti K. · Supply Chain</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --purple: #a855f7;
-    --purple-dark: #7c3aed;
-    --purple-glow: rgba(168,85,247,0.35);
-    --bg: #0a0a0f;
-    --card: #111118;
-    --border: rgba(168,85,247,0.18);
-    --text: #e8e8f0;
-    --muted: #8888aa;
-    --white: #ffffff;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,15,0.85); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 24px; height: 56px;
-  }
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); }
-  .nav-logo span { color: var(--purple); }
-  .nav-links { display: flex; gap: 8px; }
-  .nav-links button {
-    background: none; border: none; color: var(--muted); font-size: 0.82rem;
-    cursor: pointer; padding: 6px 10px; border-radius: 6px; transition: all .2s;
-    font-family: 'Inter', sans-serif;
-  }
-  .nav-links button:hover, .nav-links button.active { color: var(--purple); background: rgba(168,85,247,0.1); }
-
-  /* SCREENS */
-  .screen { display: none; min-height: 100vh; padding-top: 56px; }
-  .screen.active { display: block; }
-
-  /* ── HOME ── */
-  #home {
-    display: none; min-height: 100vh; padding-top: 56px;
-    background: radial-gradient(ellipse 80% 60% at 60% 30%, rgba(168,85,247,0.13) 0%, transparent 70%);
-    flex-direction: column;
-  }
-  #home.active { display: flex; align-items: center; justify-content: center; flex-direction: column; }
-  .home-inner {
-    max-width: 900px; width: 100%; margin: 0 auto;
-    padding: 40px 24px;
-    display: flex; align-items: center; gap: 48px; flex-wrap: wrap; justify-content: center;
-  }
-  .home-text { flex: 1; min-width: 260px; }
-  .home-tag {
-    display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--purple);
-    background: rgba(168,85,247,0.12); border: 1px solid var(--border);
-    padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
-  }
-  .home-text h1 {
-    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.4rem);
-    color: var(--white); line-height: 1.15; margin-bottom: 8px;
-  }
-  .home-text h1 span { color: var(--purple); }
-  .home-text h2 { font-size: 1rem; font-weight: 400; color: var(--muted); margin-bottom: 18px; }
-  .home-text p { font-size: 0.93rem; color: var(--text); line-height: 1.7; margin-bottom: 8px; }
-  .home-text .tagline {
-    font-size: 0.88rem; color: var(--purple); font-style: italic;
-    margin: 10px 0 22px; padding-left: 12px; border-left: 2px solid var(--purple);
-  }
-  .home-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
-    color: #fff; border: none; padding: 10px 22px; border-radius: 8px;
-    font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all .2s;
-    font-family: 'Inter', sans-serif;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--purple-glow); }
-  .btn-outline {
-    background: none; border: 1px solid var(--border); color: var(--text);
-    padding: 10px 22px; border-radius: 8px; font-size: 0.85rem; font-weight: 500;
-    cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif;
-  }
-  .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
-  .stats-row { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
-  .stat { text-align: center; }
-  .stat-n { font-size: 1.6rem; font-weight: 700; color: var(--purple); }
-  .stat-l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
-
-  /* PHOTO CIRCLE */
-  .photo-wrap {
-    position: relative; width: 200px; height: 200px; flex-shrink: 0;
-    pointer-events: none; user-select: none;
-  }
-  .photo-glow {
-    position: absolute; inset: -18px;
-    background: radial-gradient(circle, rgba(168,85,247,0.5) 0%, rgba(124,58,237,0.25) 40%, transparent 70%);
-    border-radius: 50%; animation: pulse 3s ease-in-out infinite;
-  }
-  .photo-ring {
-    position: absolute; inset: -6px; border-radius: 50%;
-    border: 2px solid rgba(168,85,247,0.6);
-    box-shadow: 0 0 24px var(--purple-glow), inset 0 0 24px rgba(168,85,247,0.1);
-    animation: spin-ring 12s linear infinite;
-  }
-  .photo-circle {
-    position: relative; width: 200px; height: 200px; border-radius: 50%; overflow: hidden;
-    border: 3px solid var(--purple);
-    background: linear-gradient(135deg, #1a0a2e, #0f0f1a);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 2;
-  }
-  .photo-initials {
-    font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700;
-    color: var(--purple); letter-spacing: .05em;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.05); }
-  }
-  @keyframes spin-ring {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  /* SECTION CARDS */
-  .section-wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
-  .section-title {
-    font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--white);
-    margin-bottom: 24px; padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
-  .card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 20px 22px; margin-bottom: 16px;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .card:hover { border-color: rgba(168,85,247,0.4); box-shadow: 0 4px 20px rgba(168,85,247,0.08); }
-  .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .card-title { font-size: 1rem; font-weight: 600; color: var(--white); }
-  .card-sub { font-size: 0.82rem; color: var(--purple); margin-top: 2px; }
-  .card-meta { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
-  .badge {
-    font-size: 0.68rem; font-weight: 600; padding: 2px 9px; border-radius: 20px;
-    background: rgba(168,85,247,0.15); color: var(--purple); white-space: nowrap;
-    border: 1px solid rgba(168,85,247,0.3); flex-shrink: 0;
-  }
-  .badge.green { background: rgba(34,197,94,0.12); color: #4ade80; border-color: rgba(34,197,94,0.3); }
-  .card ul { margin-top: 12px; padding-left: 18px; }
-  .card ul li { font-size: 0.87rem; color: var(--text); line-height: 1.7; margin-bottom: 3px; }
-  .card ul li strong { color: var(--purple); }
-
-  /* SKILLS */
-  .skill-group { margin-bottom: 20px; }
-  .skill-group-title { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .skill-tag {
-    background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.22);
-    color: var(--text); font-size: 0.8rem; padding: 5px 13px; border-radius: 20px; transition: all .2s;
-  }
-  .skill-tag:hover { background: rgba(168,85,247,0.2); color: var(--purple); }
-  .skill-tag.highlight { background: rgba(168,85,247,0.18); color: var(--purple); font-weight: 600; }
-
-  /* ABOUT */
-  .about-block { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; }
-  .about-block p { font-size: 0.9rem; line-height: 1.8; color: var(--text); margin-bottom: 10px; }
-  .about-block p:last-child { margin-bottom: 0; }
-  .about-block .label { font-size: 0.75rem; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
-  .project-card {
-    background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.18);
-    border-radius: 10px; padding: 14px 16px; margin-top: 14px;
-  }
-  .project-card h4 { font-size: 0.88rem; font-weight: 600; color: var(--purple); margin-bottom: 6px; }
-  .project-card p { font-size: 0.84rem; line-height: 1.7; color: var(--text); margin: 0; }
-
-  /* JOURNEY */
-  .timeline { position: relative; padding-left: 28px; }
-  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--purple), transparent); }
-  .timeline-item { position: relative; margin-bottom: 28px; }
-  .timeline-dot { position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 8px var(--purple-glow); }
-  .timeline-year { font-size: 0.73rem; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
-  .timeline-co { font-size: 0.95rem; font-weight: 600; color: var(--white); }
-  .timeline-desc { font-size: 0.84rem; color: var(--muted); margin-top: 4px; line-height: 1.6; }
-
-  /* HOBBIES */
-  .hobbies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
-  .hobby-chip {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 14px 10px; text-align: center; font-size: 0.85rem; color: var(--text);
-    transition: all .2s; cursor: default;
-  }
-  .hobby-chip:hover { border-color: var(--purple); color: var(--purple); transform: translateY(-2px); }
-  .hobby-chip .emoji { font-size: 1.4rem; display: block; margin-bottom: 6px; }
-
-  /* FAMILY */
-  .family-card {
-    background: linear-gradient(135deg, #13091f, #0e0a1a);
-    border: 1px solid rgba(168,85,247,0.3);
-    border-radius: 18px; padding: 28px 26px;
-    text-align: center; position: relative; overflow: hidden;
-  }
-  .family-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168,85,247,0.18), transparent 70%);
-    pointer-events: none;
-  }
-  .family-emoji { font-size: 2.6rem; margin-bottom: 14px; display: block; }
-  .family-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 14px; }
-  .family-card p { font-size: 0.9rem; color: var(--text); line-height: 1.85; margin-bottom: 10px; position: relative; z-index: 1; }
-  .family-values { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 18px 0; }
-  .family-val {
-    background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.25);
-    color: var(--purple); font-size: 0.8rem; font-weight: 500;
-    padding: 6px 14px; border-radius: 20px;
-  }
-  .family-quote {
-    font-style: italic; color: var(--muted); font-size: 0.88rem;
-    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
-  }
-
-  /* FOOTER */
-  footer {
-    text-align: center; padding: 20px; font-size: 0.75rem; color: var(--muted);
-    border-top: 1px solid var(--border); margin-top: 40px;
-  }
-
-  @media (max-width: 600px) {
-    .home-inner { flex-direction: column-reverse; align-items: center; text-align: center; gap: 28px; }
-    .stats-row { justify-content: center; }
-    .home-btns { justify-content: center; }
-    .tagline { text-align: left; }
-  }
+:root{--purple:#a855f7;--purple-dark:#7c3aed;--purple-glow:rgba(168,85,247,0.35);--bg:#0a0a0f;--card:#111118;--border:rgba(168,85,247,0.18);--text:#e8e8f0;--muted:#8888aa;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--white)}
+.nav-logo span{color:var(--purple)}
+.nav-links{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links button{background:none;border:none;color:var(--muted);font-size:.82rem;cursor:pointer;padding:6px 10px;border-radius:6px;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+.nav-links button:hover,.nav-links button.active{color:var(--purple);background:rgba(168,85,247,0.1)}
+.screen{display:none;min-height:100vh;padding-top:56px}
+.screen.active{display:block}
+#home{display:none;min-height:100vh;padding-top:56px;background:radial-gradient(ellipse 80% 60% at 60% 30%,rgba(168,85,247,0.13) 0%,transparent 70%);flex-direction:column}
+#home.active{display:flex;align-items:center;justify-content:center;flex-direction:column}
+.home-inner{max-width:900px;width:100%;margin:0 auto;padding:40px 24px;display:flex;align-items:center;gap:48px;flex-wrap:wrap;justify-content:center}
+.home-text{flex:1;min-width:260px;animation:slideUp .8s ease both}
+.home-tag{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);background:rgba(168,85,247,0.12);border:1px solid var(--border);padding:4px 12px;border-radius:20px;margin-bottom:16px}
+.home-text h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3.4rem);color:var(--white);line-height:1.15;margin-bottom:8px}
+.home-text h1 span{color:var(--purple)}
+.home-text h2{font-size:1rem;font-weight:400;color:var(--muted);margin-bottom:18px}
+.home-text p{font-size:.93rem;color:var(--text);line-height:1.7;margin-bottom:8px}
+.home-text .tagline{font-size:.88rem;color:var(--purple);font-style:italic;margin:10px 0 22px;padding-left:12px;border-left:2px solid var(--purple)}
+.home-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.btn-primary{background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--purple-glow)}
+.btn-outline{background:none;border:1px solid var(--border);color:var(--text);padding:10px 22px;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.btn-outline:hover{border-color:var(--purple);color:var(--purple)}
+.stats-row{display:flex;gap:24px;margin-top:28px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-size:1.6rem;font-weight:700;color:var(--purple)}
+.stat-l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.photo-wrap{position:relative;width:200px;height:200px;flex-shrink:0;animation:slideDown .8s ease both, floaty 4s ease-in-out 0.8s infinite}
+.photo-glow{position:absolute;inset:-18px;background:radial-gradient(circle,rgba(168,85,247,0.5) 0%,rgba(124,58,237,0.25) 40%,transparent 70%);border-radius:50%;animation:pulse 3s ease-in-out infinite}
+.photo-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(168,85,247,0.6);box-shadow:0 0 24px var(--purple-glow),inset 0 0 24px rgba(168,85,247,0.1);animation:spin-ring 12s linear infinite}
+.photo-circle{position:relative;width:200px;height:200px;border-radius:50%;overflow:hidden;border:3px solid var(--purple);background:linear-gradient(135deg,#1a0a2e,#0f0f1a);display:flex;align-items:center;justify-content:center;z-index:2}
+.photo-circle img{width:100%;height:100%;object-fit:cover}
+@keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes spin-ring{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.section-wrap{max-width:720px;margin:0 auto;padding:32px 20px 60px}
+.section-title{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--white);margin-bottom:24px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:16px;transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:rgba(168,85,247,0.4);box-shadow:0 4px 20px rgba(168,85,247,0.08)}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.card-title{font-size:1rem;font-weight:600;color:var(--white)}
+.card-sub{font-size:.82rem;color:var(--purple);margin-top:2px}
+.card-meta{font-size:.78rem;color:var(--muted);margin-top:4px}
+.badge{font-size:.68rem;font-weight:600;padding:2px 9px;border-radius:20px;background:rgba(168,85,247,0.15);color:var(--purple);white-space:nowrap;border:1px solid rgba(168,85,247,0.3);flex-shrink:0}
+.badge.green{background:rgba(34,197,94,0.12);color:#4ade80;border-color:rgba(34,197,94,0.3)}
+.card ul{margin-top:12px;padding-left:18px}
+.card ul li{font-size:.87rem;color:var(--text);line-height:1.7;margin-bottom:3px}
+.card ul li strong{color:var(--purple)}
+.skill-group{margin-bottom:20px}
+.skill-group-title{font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:8px}
+.skill-tag{background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.22);color:var(--text);font-size:.8rem;padding:5px 13px;border-radius:20px;transition:all .2s}
+.skill-tag:hover{background:rgba(168,85,247,0.2);color:var(--purple)}
+.skill-tag.highlight{background:rgba(168,85,247,0.18);color:var(--purple);font-weight:600}
+.about-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}
+.about-block p{font-size:.9rem;line-height:1.8;color:var(--text);margin-bottom:10px}
+.about-block p:last-child{margin-bottom:0}
+.about-block .label{font-size:.75rem;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.project-card{background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.18);border-radius:10px;padding:14px 16px;margin-top:14px}
+.project-card h4{font-size:.88rem;font-weight:600;color:var(--purple);margin-bottom:6px}
+.project-card p{font-size:.84rem;line-height:1.7;color:var(--text);margin:0}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--purple),transparent)}
+.timeline-item{position:relative;margin-bottom:28px}
+.timeline-dot{position:absolute;left:-24px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--purple);box-shadow:0 0 8px var(--purple-glow)}
+.timeline-year{font-size:.73rem;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.timeline-co{font-size:.95rem;font-weight:600;color:var(--white)}
+.timeline-desc{font-size:.84rem;color:var(--muted);margin-top:4px;line-height:1.6}
+.hobbies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.hobby-chip{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;font-size:.85rem;color:var(--text);transition:all .2s;cursor:default}
+.hobby-chip:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-2px)}
+.hobby-chip .emoji{font-size:1.4rem;display:block;margin-bottom:6px}
+.family-card{background:linear-gradient(135deg,#13091f,#0e0a1a);border:1px solid rgba(168,85,247,0.3);border-radius:18px;padding:28px 26px;text-align:center;position:relative;overflow:hidden}
+.family-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(168,85,247,0.18),transparent 70%);pointer-events:none}
+.family-emoji{font-size:2.6rem;margin-bottom:14px;display:block}
+.family-card h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--white);margin-bottom:14px}
+.family-card p{font-size:.9rem;color:var(--text);line-height:1.85;margin-bottom:10px;position:relative;z-index:1}
+.family-values{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.family-val{background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.25);color:var(--purple);font-size:.8rem;font-weight:500;padding:6px 14px;border-radius:20px}
+.family-quote{font-style:italic;color:var(--muted);font-size:.88rem;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+@media (max-width:600px){.home-inner{flex-direction:column-reverse;align-items:center;text-align:center;gap:28px}.stats-row{justify-content:center}.home-btns{justify-content:center}.tagline{text-align:left}}
 </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-logo"><span>Jyoti</span> K.</div>
   <div class="nav-links">
@@ -252,11 +110,6 @@
     <button onclick="show('hobbies')" id="nav-hobbies">Hobbies</button>
     <button onclick="show('family')" id="nav-family">Family</button>
   </div>
-  <style>
-    /* Scrollable nav on small screens */
-    .nav-links { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
-    .nav-links::-webkit-scrollbar { display: none; }
-  </style>
 </nav>
 
 <!-- HOME -->
@@ -266,15 +119,13 @@
       <div class="home-tag">Supply Chain · Logistics · Data</div>
       <h1>Hello, I'm<br/><span>Jyoti K.</span></h1>
       <h2>Supply Chain &amp; Logistics Professional · <span style="color:var(--purple)">Almere, Netherlands</span></h2>
-      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Almere is the Netherlands' newest city — a modern, diverse hub just 20 minutes from Amsterdam, known for its bold architecture and international community. It's where innovation meets a great quality of life.</p>
+      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Almere is the Netherlands' newest city — a modern, diverse hub just 20 minutes from Amsterdam, known for its bold architecture and international community.</p>
       <p>Results-driven professional with <strong>7+ years</strong> in reverse logistics, inventory management, business development &amp; supply chain operations across Europe and Asia.</p>
       <p>I am a <strong>people person</strong> who thrives in cross-functional teams — building strong relationships with colleagues, stakeholders, and partners is at the heart of how I work.</p>
-      <p>Deeply <strong>data-driven</strong> in my approach: I use data to uncover insights, drive decisions, and continuously improve processes. I genuinely enjoy working with data and turning numbers into action.</p>
+      <p>Deeply <strong>data-driven</strong> in my approach: I use data to uncover insights, drive decisions, and continuously improve processes.</p>
       <div class="tagline">Six Sigma White Belt certified · Continuous improvement mindset · Always learning.</div>
       <div class="home-btns">
-        <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" style="text-decoration:none;">
-          <button class="btn-primary">LinkedIn →</button>
-        </a>
+        <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" style="text-decoration:none;"><button class="btn-primary">LinkedIn →</button></a>
         <button class="btn-outline" onclick="show('journey')">My Journey</button>
       </div>
       <div class="stats-row">
@@ -287,48 +138,30 @@
     <div class="photo-wrap">
       <div class="photo-glow"></div>
       <div class="photo-ring"></div>
-      <div class="photo-circle">
-        <img src="data:image/jpeg;base64,
-      </div>
+      <div class="photo-circle"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAFAAUADASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAwQBAgUABgf/xAA8EAACAgEDAwMCBAYABAQHAAABAgADEQQSIQUxQRMiUWFxBhQygRUjQlKRoWKxwdEHFjM0JENUcoLh8P/EABkBAAMBAQEAAAAAAAAAAAAAAAECAwAEBf/EACMRAAICAwEBAQADAAMAAAAAAAABAhESITEDQVEEYXETIjL/2gAMAwEAAhEDEQA/APYOccwZZS2RCOCRxAbCp4kx0Usr3HdnEzNdd6LjnvNO3/0+8y9TSlv6jyIrGRWjUOHBHaaC6sY9xmYq7JDufiCxsTTOrT5gzqkPGZkNY31lRa31msyRrNevzBm1T5mUbLCOZV7LFGYtjYs0ntX5gXYHzMe7U2fJgjr7F45iMZI2CwkZmQNe8kdTOeRFoY1wZcGZlfUFYd4ZdYp/qhAB6o+LUWVpQsAYrr7zZqFIHAhKNSQMYglwaFjrVvj2wlFZr5I7wlFoZATC2WKV4gQzb4SRv47RzS6dUXOeYgjkkR6ksBG6K1SC22hDtMBbqHCEKYS2v1OfIib2bSQY0qQkExzTW2HBbtGWbvFNM4ZcwzuAsKegNOxe5WsP6iIzpbTWoVjmAW9CxE5rgpGIBmrNgOrJmIdRq/NVmpTiVXUFasCBXUtu7SjeiKjTszv/AC/cQQHEXu/DusUjD+fmb1erIbmWs1qjnvFUYjucjPWpqalrc8gQZUO4h7bPVJaCrrZm3CCXTRGdPSFIOIyfaTntiCR9ijPeDvtOe8UOwfqhLcntmaddqEg58TLr0jam5R/T3M0LtPtACjiZWBja2JYMAyVGGzFqKigzG1GFGY62K9BVzt93eUc7ZZiwPMG53DBlRBZ7CXIxKtQrDgYMJXgPgjvCkDd2i0NdGc+kwCc4gjpiFzmatiAiIXIwbCmLSGtiq1Dd7hIeusHtHvRU1894odMWY8zXRqsWsCAcCL2sgQ5MLqqbkPtGRALUHPuitjJCNoDD6RfYPmbDaRWGAIIaJAcERLKGatYg7EXOM8zTbRjPER1WjcHcDMYX9FgODC6fSvuyScStNFzOPdxNFKHVZjMU1Gjb0yV7ymiotWvLjmaldVjkA9o8ulXgYhq0DLFiVS/yxDZG3BEatorpTJE6qqu5eIK+ByXStVOVDCN1qQvMlK1rGMy+RDTQjlYNmKxZkDHmOlQy4g/y5mpmTRNC1ooE69VZcAwb1WAcSyqxXkQ2+Gr7YumlJJwZS2llsAJjyqRA2072yTFofJ2EqX2YMhlGMAThuRcA5lc7eWhk6QkVb2QEM56uJdbq84zLkgjiTUmPKKFSgUYnVEqD4E6zh8y7Y9Pj4lLJoGtpd8fEt6f8wljx8QdY9PLEdoXd6g3EEGAI70/ALHGBGn/5xPSMFDD5h2tJbaF7eZRcJvoZB7e0sAZUOoKg85l1ZQTkgfENACJatqbgZR9rA47yrbK+UlC5Jz2j2Cih3bsgQlZbsROrJc/AhiMTAYPzF7KwW3CHcHORBnMRjoWckCKu7IMzRKbonqKiTiJ0cTGqLEqw7wTAK3HmFsq2P+mBI55gYy/Q1Q5kOgBzKZdSNvaEX3cmSoewTL5EpZWGTBEZ2AyHTCw8MZgr2WYEZVSR2lSm67IjQXjtAOylftMZQwLVNkGMomF+sKbEaT2WdFsTDQmmoTOFlGUmvvCaM7ZRMm1rQd9OIJqDHM5EggERyYmvt4hVdexxM/VtYt2Egx624ZJi38Hx1ZrFkI4le3MDUVXljIu1SMuE7iOIEsuTHwYo943YEgE3cbYavSZ7iAN0dW64yROCeoeRCMFXC47SVzngcQgFH0pDnA4lq63zweIxuLtjtLe1Fi4obJmdqPUD8DiQtm4bcRm112njMTD7OQIrQUXBwu3dzL7wi+5uZm6jV+i2T3MVs1T2n9XEWymOj0FBe0ZpIPPMcbKBSzZY+J5fS/iGrpaPU1TWE8gjxNDQ9R1OuNeoYAI2cL8SnER6zXvtKqpBwSZRksusDAk7T2kcvYr2EYHYRyh92fbgH4hQGRzv2mWYFlKQtiBzx38GcEIUbu8ajOVgdOSjYIzGy2Yo4IPtPMKloAAbvHQjRLcEmUBGMS7OO8CSMxWhk9EsQD3gbfJEu7qBBlgYriMpC+wPyYG6vauQvaN5RRkmCsuRhxBQWxNWO08YzJr77YVlTHfvAMdj5HiI1QydjI4yCIKxhtIlTqSe8Gz5HeJQ1gqsiw5+Yw7kDiLjvGAu5e82xm0FqYsADDiBo2jvC/qIxNTAmibP04BhKAFTJldmZY8DEahb1QwtgxJDAmAUEy+R2lETYK2sepuPMWutFbfpjzgRXVVg8gQMZCvrtYpCrK1hqzl4xSuDnEOyJYuGEXdDaTovpKd67xGexxFK7jUNq9hCjUg8t3lFwk1si1TuziV22eBxLtrKsciL36m0ITX2mf6ZfhS3UitypHMqNUlvGYlZY1jZbvDeknohgefMS2x2kgtjKvbzErv5YLjmHRQwyTK9QKroCEwGisaPTI1wL2Bj2xEVynOe8dS9ShNi5AEzL9QNx29oYhnadHW1mxuOJ7HolCafp1aHlzzPKadXtYYE9To7y21MbQABNKVAhG9h9Z6yhWqI5PmO6NyaBzls4MoK11DbDzt7mRqmfT0l1Ujb2CjOYeE3s0Ksk+6Rcro24HiTVZuT4MtZhlxK/BPom1uCSVijdUUWFDWT9YxqTtQ8E4+Jj26mkZJyPvJtv4VSj9NUapGXIGIN9VX3yeJkL1CjPDwg1FNiEBwc/WDJhwiaY1dZTdukrcrfEzEatcAMMCWa3OVA4hzYMEOPdWcjIMCxHiJmrvtJGZADleXPEXMbAZ7tnMpaMf1QdSOTkNmUvfD8nmazYsllJ7NIAZe5gizBlbMHq7rAwVVPMW0NixtCPEJvImRQbqMsdxyfMa9c2LlP3m0CmaFdwHeMpeomJ6jvwucwldtlS/zD9oykgODNwXqRxK2WrjOZlpqWI7GQdWrEqcw2mLi0aqausD9Ql11NbH9QmUio4hPSVVzkiMgM1vURuNwnYQ8FgZi5ycK5kW06kDKXY+8dUxaaNv0wO2MQOpPpj6TDZ+oqcLbn95xbqjr7huEzSaoybTtmwK2sUMhhTR7RuaYK6vqVAx6c5usa8fqoP+IFGguRtWaVQAQ0qzNWnuPEwm6/qC2PQb/EpZ1yyxSGqYY+k1Iyf6ajKtr8NiG2hKgM5nnE6mXswu4H7TZo1g9NVY5Ji8Ge+FtRqBWu1e48QV38/ThmbEV119Y1ODwPmD6iXtoVaWIx3k3tlFpIFYaVRhuzx2E89bdm/ZWwyTwJrW2po6CW9xI5mDp6LdZ1FbKOCHzzKRWiUm2z23TtGyUorDLkczY03THsvFluQqxnpOjK1I9uC20ZmmcAYECje2BzrSK01qnYQetYLQCBnmGHYmUsrNiYI7R3yhF0iqznlcS5O0ZzzF2RhypOPiECEgZhTDRRl4yPMT1GiotyCgjVe71irdpFxVH5MSXB49McdJpyQUkp0agZIGI69+GOMYlBcZIs9ij9Ir3e1iIqdDYtpUWN3mk+pA7sIBr0zu3QWzaB/ldQg4YGC1FOqRcjbzHE1a2HAYEy7o1g8xrBoTqq1aV52DmBZbix3VZmoC6V7JVVPdhA2BGdsbzSZNgU4PpkETTBGeRxLO1OwlsDAhM2/hjNZWFw2Z1FujpXazgZmDr+tvqdZ6FCFFLbVA7tHX/CnVdUUeq30zn+7gSigq2C38NhX0Scq68zmbTOM7wZ5rU09S6H1BaOpk2JYf5do/S4+/gzeTTae/TLdVyGEEopICk2x1E07oNpEj8nVncCMwGn0BtwASAJoHRALgExdBbaK16esHORK2VpYdm7E5tI6rkMYuFdCTkw2DYevQV1tlWzJ1OmLJwcfaJm+wH9Uk6u0cZzDaNsLptDaCCzZEeWplO3xM+rUasntxGRqLwOVzCmkK7LX0MxyDBittvOJzai3+2K2axydu0zWjU2XcqgPtX/ABM7UWCsnheZN9tjHyJi9UTV6hMV7sj4mTNVIdOqrRiSqDHmKn8RaKm4buSD4nnLtN1BT7w5gatHddeqis8nniUxT6JlI9zXdp9enqp7lPPMM2DXtHmL9O6c1Fabf0gdo867e4nO+6Ohc2Zz9M9Qe47h8RnpXRq69SLR2B7RiuzkgzQ0xXYFQYzNbA0jaqtWuld3GeBCAnGYDTIXrUWD9PaObAR9pWOyD0waMLFweGzzgwxG0YJ4gq6wikgAEnxL2EgDJ8QrgGRwVzjiVJAAnepgBcSLVOAyw2GihwD9Ylq9O15wrFc+RGskjnvOrGTzJvY60IJ0QDn8w/7wn8JYDC3H9xNQKMScTUCzAf8AD1jsW/Mcn6Sh/D94UhbgQfmehxOxBiNmzzdfQdXTctgdTtPaaqJag5pBj+JGIaoDbfTNey0H/wBsT9pAsH9VLD9ppESAoHiYBmM9Wf0MP2mP17W100rRWxD2nkf8M9XtHwJ85/E+rOq/EForxspxWuPp3/3AlspHpPTNLTZ1epnvShk9yFgCCf3n0LSagflj6qDenDbfJmF0TR06XpddzVltQ67s9jjwJoabUO9aLZp2TcxBZSCB8do0p7LR89GX+Mx+c6OuaXT07QwJGR/kdoh+Hb1FL6exsf1KD/ubHV+j6lunXmnU22KQW9N23A454zyJ5b8O6lLeo0qedy4I+uJpO40I4U7PZ0qF5HaG354gCePaJXNmcASCdmcf0Mx4x3ierpu2/wApd2fEMl4rbFh5ja3VlQVIIlEibdGCNHqiwzSRH16ehALDBmn+Yp8sBBX317CVIP2jUKI2oav0dhJruAXLCLDqKu5TacxrThbcHxGVPhmnHpZXS4Haoi5rCOWZQZrLpK1XKr3gLKVH6hNj+i5fhl+kuou9qj7Sz9PCtnbD6X0qtWzEx421MC3HEySC20ef1OgVgfaMzPTSCiwYQd+eJ6krRZliwE8/r62/MYrY5zxFklWhot2ata1+mgAEFfp/VsGBgDvJ0gcINw9whz7W57mIH6JNpSW3ERilNpULycy94cgBfM7QKwvAY85mD8NytQqAfSX+kgSGbgn4liAQLxz8SrpuIE6twQeZYsFIYmHqNxgFG5+YZsAES2wZ7QViZOMw1RrsGUwmfE6sYI4nOzrXg+JSlyxU/WJ9H+DZ4HaRkS3cShWOBf2dkTsiRicRNQdEjmdicBiTFaAyuJ2JYwV4sNeKiA3yYpgGv1Q0Whu1J59NCQPk+J8rNpOqDucl2JJnrvxhr7KNPXoiR7/e2D3x2H+Z4xmDX1KPLSkEh9o+hfll1+k0tikn01/RuIVuPIEZOnatF/K0Np7ByCthKE47EHxPJdJ6trdFcyV/zKQ36D4nqK/xA9yDfpXGP7eZK8dHdGbrRpepZXSfUwp27mUHIBxzPmXQVsq6sloXINx2r9OZ6X8RfiyrSaCympX/ADFwKLkY257medq1PoaqpsFTU4DDyJTzjaZyes6kj6IF9vaVUkHEH+bQVqyncuO8AutNl4GOMzmaSHipSQ1qaqWX3D3HtF7kfS1AqjMPpDW2gOI3TYGGH5EopJuiTi0rMYi++vcVIHxD0V2lfTFZ58maNuooQcbTiWp1CWDIxzH1Yn/arMmnp1ulsawpv54mmlpasH0Np+0cDqDyBLGxR2AhSS4aUnJ2zLs1urJIq05wPmZmpu6rYGC0tnxxPShs9gJzfpMNf2LdfDxunHV7rtrafb8tHiba6TW593mb9VeAT5M8/wBWS5NXtU8NEmqVofzlbpgdNuDEO+RGdqC0bsfeZOoW6twqsRmJ33alXBZyQsS6RXC3aPUG0AAJycyu5nY5GIDRBjUrEdxCvaEOMTdE4TubdgmcrNXYGUZwZIT1RuUYl1/UF4yTAY19OXsQM57+BC4GMSKcLWMDkSw92TLIizq1GZNp2DnkTtuBwZ1nuqIBwfmHiB9OF6E4ziAS9bLW2sODzOvXbnaMxayuupTYAQT3xA27KRSoY1FtIO1mGTA14W5cHiLtpqyFsLE/TMNQP5wJ8RG7khlpGkDkTm7SqNmXxKiAyDmTLYkY5mNZB7QVLH3Bj2MMYIod5I7GBgCQVrNuVF4z3MuoM5k3CKMfOPxfcbetWLn21YQfsP8AuZ50kjVVN/bkzb6+rnqlzNzusf8A1Me2v3I3wcGPDhSS0en/AA1ULaXtZcgueZ6pUrrQtt4AzxPG/hq96q6qgCVuO7v/AJnv9D0vU68ApUfT/ubgH/vOeUW5aLqaUU2fMOtnVdXubWJpWamo8Kh5A+oiOje3UX3PaSbCdxz3M+70/hpVXDWhfOK1iGs/8OOk6u31/Uupu/urAAP3GJ2QtaaOP0lBu0zxvTHbU6NUDE4Waelq06KCzDeJpt+BdT09GOi1QvA7IRtMxm6felz+plWHdTwROb0i1Ky8Jxkqsbtsq3jkTns/lnb8TMZxW2Cc4MMuux4Ej9uy2GqSANcuNrHB8x/SvXXQpVpman+bbuUcmEq0123kEY7RloE9pGndrWRcqQYo3VXDAMcmUrR9pDjJgLdMxHbJgTYrjEbbq/t4OD94xb1SyukEIXJHYTGPTrQdzKR8Q9KX6axWOWx4MdSYj84jidfsCe7TPgfSJr1P87Y1hTscYM2rP/idLmtE5ExdNQo1FlfpHOf1DtKOyKSFdZrAWIKbT4lNPp/zBFlvbwJpajRPYCEQbvrEtObUdktAGDxiJX6UUtaNTS2LsKjxJevd7u5lKqlKZV+YRWAbvxAALScV7ZyVA6hXPgyDYqg4HeM6KtblLd8GboOGgjDbkTg2DxKhCBOYHGMyhMJvyftK2OBWceYPBzkGdjPtJxzma2agilXJycH6wdpUZTAJMO1aswgyFVyMZIj0BMT9MemSTyDLVOvrqsBq7TXYVRTKaVWbXVuQe3MlyVFquNmzgS0idKkiZHmcOZH9UBjjO4gNZYK6SxJAERGuTSqtj27gx5XviagmriVtcVVM7HhQSf2nVWi2oWAEA/MX1zJZU+nYbg64YfI+Ij0NFW6PnHVd9uq/MFTjBOMdyYi1eV7HJOMfWfRK7kepvy5A9HIKY7Y8feMUdF0Gr6tptVbSDYrBuOzHxn5jecldM6PSLSs78HfhBNPpdNq9dWfUVMpSf6cknJ/1xPd1gKAAO0HWm0c94ZVnVSXDzJTcnsIDJM5RLYmADYTJ630YdT0zemQmoUex+2foZsESMQNJqmFNp2j5JZp3r1D0XVtXYhwyt4MC6ENgA4n0T8RdEr1tf5utP51Y5wP1L/3E83XpKlUYXP1nJPzpnf5+1qzGo0dxIJUx46bUbPa+ZppSAMgTq1w5HgwKBperbMK3TapQWBPEVGoYHDk7hPUuq9sd4hqtDSfdsGTFlBraGh6p6kjJPUXdxXkEx2im93BdeMSKelVtZvUYIjtxt06ZC7gJoLVsHpJXUSptOnrJNYIiB1227KU4E63WWalxUF9pPM0Dpak02MAkiU7wjzoCrU+qrPgDjtMnUE+oSPmXcOrnxz2ELUalYM4z94LDVE16c7VbeeYQIykAHP1hDcr/AKBxLYyIlD2yj5GMzT6Yu2jOe5mZY6jgzV6eR+VXEK6LLg4JU/MnMq54JHgSjJF61BQHHeVKgGQtg9MZPaQbVIyOftM2qDTs6tnddw4zK212bGKN7iPMjpr7tCnOceYw5yIeo3GZena9mKXBSB/UIahgdQFxx8y1qFQdmBB6VQ9pyf8AESPSktqzR2gzsDHecqBRgSCgHOTKkiy9pUD3Sy9oZrqWpFa14cdzMaxPVVerQyZxnzMGmgp1AVFA1QOctPSN2MwRTY+sd7W/l5wQJkE21sRlwhBA+J53rfU3p1DDSVi64DsDxgd8yvXuu1dC0dtOnYNfYMVgf058meC0+r1f5sX+qzOc5Dc8eYMMtjxniz2/RtbX1TqrtparluspzqEasgKRwOf3/wBT1Og6VqadTTYzPjAG34xI/A3Sn0/RE1OpBF+rxaw+F/pH+Of3nqQgHiOvFdBP+S7pE1OHyPI7iGAgGUqRavde4+RO1GqFNQZAHd+EHyZZnGtsPbfVQAbHAz2Hcn7CctruMrp7Mf8AFgRfTVir+a7epc36nP8AyHwI2haz7RaY1paQNtSlbqlqvWWOAWHBP37QkLsGOeZQqB2mMyh5E8n1TSjSa11Qex/co+PpPWzI69SGoS7+xsH7GLJWgwdMwq8AY8yMYbMsAByJVu8ky4N/dj6TrAGXmVtcoucZgntBGBzmAwanaohGZCDnH7xYZKgTrKPVBG/HE1hr9BuKgTtUAwFlgGN7du067T31rhW3fWI23BeLCAw+YuxqRGsK53J3mbaXuCqGwc8x/C2qSGB+0TNeLP3iMaPR7TutVeCeY3W6uhJOJnn2pkCT6x9I4OQBziBMLV7GGKscGa+hXbp1UGYGht/NLkjscT0tISupVHbHEK6LLhc7gM95UuWBEsbOcDtI2gjOcRn/AEJ/oOshXxJCtvOOILFjXjB488Qy5W0Y7RFsd6DaWtaadijgSLXwpwYKzUppk2btxMSOoc5YjIl2ya27DXbnQc4ldCpruwxzmAOoJIzwPiTpWd9aCDxEX/opvE2px7Sq7scyefPaUIkr2lAf5hl17Qaj+cxz3EwQhGRiZ1mgCI+LSoPJJPb6zSgNTUL6jU36W4b7QMaPTyt3SaupaS7Ua2vbpa1/lMMq9h/uP0PES0HR6a9RVp61y1rqu485BM9T18CvpBCjA3KMfSZHQnP8X0i+0/zQRu8GJu1E6I04udH03T1rXWFXAAAAA8CFgaLlICt7H/tbz9vmHnazyyM4mWXD65yOFq9oH1PeaVhwpmNW386/59T/AKRW+DxWmaNVhdwJo1HAmPpXxZzNSp+IW7BVMazKE8yu6QzRQnExPqa+p0+5f+HP+OYyTkwOtONHbn+xv+UwF08oTgQKt7yMy3qjJHPEA9lmcovE5zpO1HaBrwe852cr7hgwKtg4Jh+G+juQBwZRrwpwTKq3tPMT1BOTiSba4Okn0cOoQHDN3mf1GjTXjBGSfiKWl84yZao7Rlu82TYcUldgNNphpS61g7T8mQ7DfzG1bIMQ1JwxgYYjKW1thQwJ8iWbToVZavbuHMzqzizcDzHdNqmYuGXABwD8xR9onp9R0RZGOcmeh053VKfmYD+5wxbAm3oWFmnUoe3BmFY4oAwZVmAOMYgbtWKK9zV2HBx7VzMzU/iXRVEMxcFe+UIjXoRJs17DtQkee5k0tuYHOZljr3T9fpl9LUKGY42E4M1tPUErXHx2mXTPS2AXpxGd7lvrFLCq2Mg7LHG1tljemiFW+TE20V62nPOecyjf4BR3sTLG60Fey95o9OZWtHzFatK1JdwuTjmB6RqbE1thsUkeAoix6PLaZ6cToOq4WLkAj7iWD7jgSxAle0p/80/acytng4kKpD5JzNswWdidOmMJdZobUdLuRBllG8D5xzPKdN1Y0/U9NcTwlqk/bM9zMbVfhnQ6nV+vvepWOXrTGD/2iNbsvCaSaZ7lAtle1gGHwRLogrBALY+Cc4inTbQ+mVAf/TG3Bjs6rs4GqKWniY138nWFicLbx/8AlNhxENXQtiMrqCpiyWh4OmDrfa80aLhjBnlm6q+m1dOlfTXXJaG2XKO+OcY8ma1Gp3KGAYfRlIP+DAmNKNOjaFk4PnzEEvc9lJjFKuxy3A+IRGhpeeYn1h9nTb8HBK7R+/EcHaYn4g1PCUKf+Jv+kzdI0VbPPsrbMMefmSjbFAMo9p54xiVTcx5MgdBN1ijvFGIPuWEvPux5gij7cg8QisupZlyIKxG8xqpga+eMQN16J+oxWhkKvTj3EwNzJXXycQl+rrK4U94s2lbUkMxO1ewif4P/AKVF4CZi11gbmRqc6fKuR9Im1u4ZBk2VSLPa1fIGYXTancArnBgAA2DC6WhGvIbJMVjqqNPAdQM956HQVLp9Mla+Rkzy6saGA/VzxPV04bT1uvkQxJTGDyMGUNFVy7XrRvuJKnPeSx9Nd0p0mYHU+jaI6lHShPUByAoxN6txsU/QTD11r26kW0WKxQ+5CcHEb0HVKtTqX0rK1dleMbhgMPpETpjtNpGkKwtjNxzILAt37TrLAoJmbfZd6gKcCdDJRVjRsXLqMc94DpelNOttfIII4gK0dWYscZk0ax9PYxSvfEjtlJaVI3uJEyP42/8A9Mf8xijqfqDL1FP3lrI0x/iQR7hEv4jlyopYj5EKmpLsM1lR9YDUNZnQfqr8yPVX5mMFnbRANqUTk5Mr/EKCcZP+Jgj2lvOmv3DO08MPpN6tgyBgwKnsRPM13JbnaYXSdaTR68aO44qZR7yeFY+D9Iykl0WUHLh6MxTWJmhgPIjCuD5lLxuUiUJLTMPqVAr0ul1YH/trFc//AG9m/wBEzSWgZlTWHSzTWAGuxTj9+4lejWs+kOntObtM3pP9cdj+4xEXB2O1VgRlVxKKJZ7FrQszAADJJPaMhGRqdQmmoa2w4VRkzxus1rX3NawyWPb4jXVupNrrNiZFKHj/AIj8zPrTceYknZSCoA1rMf0mErdgvC8y7Mqt2kG9duMRCgs4ZrORzIsLKuCIYkEZzzFrWJPMwARexcgdohdYxbLZj5JCZiN7DdJyRSLErNStVgLjIEcr61pmTaSEmdrWUVk4zMkX/wBy4I+kRaHezW6jqa71LA5x2mfXYth4OIEalnBUrgTkGW9nBiy7Y8fwfXcrADmO1vjkDBidNo7N3EIbcOMRaCNLeps2nvPUaa7ZpkB5BE8ppduo1SVqPcZ6lunb0QV2tWV7gdjMr+Cyr6OBs9pxY4IySP8AlF60ZbArWMCo7HsZnda6jrdBS1lNK2qO+DzGsnQUdH0mtey27cSDgqDjMi78N6V8elddUQOPdnH+Yl+GeufxAXJdUa7M7sHyJ6ZSrc+Jkr0Ftpme1llrZ/SJV8hh5EPsz9MwOpsrrXGfce0qKD1DhUJziJVupbBfAlNWbL1QA+ZQaM1kFjMnQ2N/TToVHGFx94RdHs5DE5gNHfVR+rMeHUaj+leIyaYjUkArQ1McE5MI97VoSTgQ1V1dx34X7QOuYW1FNoA+RDwHXsU/iZLcciSeqN/bEV0u3PuMsun+TEzZb/jiHfqeQVPeVo1AcZzzmCPTnJ3bh9IevRbFwpz8zWaopaNPp1u9mHhRkzM0m42v+YY7mOfec5/eNpZ+V0jVquXtbDN/aslFwoG0MB2+RE9W0kmHwcZNuL5oe0nVb9CUrWxXTOBXY3/IzeTqCWD3BkPwef8AcwdDpgW3tWu3wCPM1EEv5ZY7Ie2OWhssli+1l3DkcxFL00nV6rskV6lfSb6MORn/AGI9SD4H+ov1Khl/mJ5IYj4PmWqtkVT0abagKPaCZ5jqmv1V9z12naitwg7f/ub2lc3acFvfxw3HMwOqV411g7dj/qaSpAi9iRsyuPM4WFBzBFGLTmI2nJ7SbKBdyuMkxZjluIMWqrctxIOorzwRAEu9hQYi72EnJnXWbjnIgQyucbhmAyOe1sETOvc7jmPOMHvE7kXlzEkUiZ+psSys4bt5gkah8KHUkyLbKi5B7eRFqdLQmtFivhfiJVjJ0X1aDJAGOPEpo8E/adrWIvbbyMcSmjbDYPBiyQ8WaddQec6GrHkS9eNowYUANweYoRjo21tcpAwRPW1XcAHxPHaZxp9dU69icT1NLbjkdjNFgmh4OjdxnEBbRVqkNboMntxKfoJYdpb1woHH7w5X0Sq4YyabVaTXgCirav8AUDgkTXVyFDKcHyJGopp19eGJVh2YHBEFZp7xahNwZB3G3k/vE5we76NsRUmWHaZT1jU6j1Se3aPaxy6/eZhRkAbcRg+J0slEPZQRUHHcHkQXD4BJ+0d0DrYdr8/ePCihW3BVBmSsDdMyxo2ZPah/eC/JXE4TM3gyjtJDKc4xGwQFNozdJ0llXc9hDHxGv4eDx6hjakTgwyRmNihXJsS/haf3GR/CkzyxxHwwkh1PkTYIGchP+GIAPeZddAq/1GN5GODB6jULRSzkgkdh8mGktmUpN0Y9iWU32uHV61fCt8fKn/8AvMILBtPpJ78cJnjP3i2mW2p3J9628up8/WP6Kg+sLAgCKCPj/UResfVYTXOMjL+H6/x/Z+vhOk+p7T/v+maGm3rQm8BX2jcAcgHzGq2JMWX6RinkzoihpPY7XuPcmGNIsXaeP2g6hxGFJHaPQllKqF01YrVjgCY/U6kbV5Iydom44JHf/ImBr7QNSwP9PEE+Bh0WNKY7TzPVlvruIrJ7z0wsUjOZldSVDelgOR5Eg1ZZOjETQazUJuBaHr6NrMZLYm5VrKVQDGJ1nUakxxExHyMX+C6oOD6pP0gtT0LUZD12EMJtW9VqRchSTKHqlboMqVmxMpGC/SOovg+vBWdO1iKfWtG0TeXVJa/sbtK6isXIVbsRBiHI+fdQWy60rQc7T4ioo1VRV2LAieo12l03TbFKITuPMR1TC5DtHeM9cEVvbM06hy6nuSYxjawPkxda9lwLjt2jBfeQwkpLRWLdjtDkYzHazmJ1kFRmM1MMyZUc0ujsvO9Bko2fvPR6ZSiglSM+JmdJOaDgeZpJaS4B8QqP0RyfBhkyCMiL2EL7QYzwVxjvAvp1TLhjux5iSiGL/QemPv5PmFscpaEBzmIvb6VRcqw/5wPTuoJqtS/DHaO5HESL0PKLuzQ1dgRCxOAJmLqvVs4GVhdZZ6zBD+j6S+j0yoNxH2naqaOZ2mG01JA3NkGFcMSMM3H1ltxkbie0KAwoJx3M4tj5g9zCVLEmEAwt2wSPXUHODmL5BlcxqFHPzII7GWR1K4xEwZfe2JjDQLZ4zj7xWw+pYe+BJ/MFKyfpE6dQ6q+8ZKttB+ZD2lSo6fCNtsfrXBE0tOuKe3fmZlLM9wTaR25M2NoVMD7QeEdth/kSpJAgfeR+4jVEUfh1P1jVM7InEzRr7QuT4xA1HiFzx3/xKEyz7gOWbtPIdS1oXqNyliQrY93eersx4HM8VrEV9XaxHJc5/wAxZukNBJsG2uU5UcSaylrLvYcSBpaj/TOOmrB4GJK2UxQ1bp6sZUjEoaKWQ4IJizVDtuI/eQKBn9ZH7wWGjm0pI9olLtOy1njtDKm3taYHUVWWDC3GGwU/0BTp1LCxMg+YV2sU/Ig2rvrX22QW7UZ5szF1+DU/0rqNJ+Zfef8ABEn+E1unYAyfWsHG4TjfcOzCC0FJmfq+iK/CjBEwr6G0rmuzgiepfV3jJO0zI6jSdb7mADDsRElT4PG09iSNlQQY1QxzM2kvS5rcHgxtLthzIFj1XSrB6GBj5Mf27myJ5fpll9+o20vjjJmxptbbS+zU42Hs4mToVxs16t2QPEY1AC0ZPH1i9NiMqsrhgfgy+u3tpHUdiOI73FiLqEdVZSF2uwOewz3iNWpr02n9Mpt5PIlNRQLtrYxYn6W+DA23jTjbqq2BI8DIMhjRdSTNiuj1H3EceIwQFE7dtXgSjAsuScTtSOQhmXw0stiqORmLsCTwJwBHzGoFh2tU9hIVgc5EECM95JuUELCYIibucQgrAEqL0C8GDa7PmYxZsdhOCsZRHDS3qgeZgE2VhqyM4JEzKVt9UIyP6ht3YJ9rfaaBuGZq6Guq7Sozor7WLKSOxiS88i3n7PzuhbT2NddRdWpxv2OMfp8j/r/iaz9pwIGcADJycDvIc5lIRxRGc82L3nCxug5APyJl9Qu24QdzzmPaF92nrb6YjLoj4atXaFycd8QFR4hsnxxLEwWssZNPY25hhSfjxPHoozkz1XUmP5O7jnbjM816TE8Scx4FSygYzI3LJek9zKen5kyhYlDA2D+0yTW3gyuCTiAxUHaeZ2/BnFCOcGDJweQZjBS24doF61wSJBsxxzKNcB8zBAPWA3wJUqT25l2uXBBUzlYEcAiCg2Qa9y894JqF2nMbXafmQ9Yx5i0MYWs0gYE45+ZlHcrlW7z0uqqKg4GZha2lncMgwRJSiUizV/C+oro6hi4gBxgEz1mr0NT1MAByODPntVF9lYesHAPJE9lptRfptBUbmLqwHJ8RflMz7YhW35ByisQxbsZqnXO2l5wQfrENWUtG5SCRyCItXqQaTjJX4xJbRRpPZq2hTs2YPOYCxxdY6243gYxFqrXpK784PY/EaPoM7MWCvjgnzGixJIfJsb6CVIfHeMErBOw8TsSOewYB8y2CZX1MeJ2/PaMA41iUKj4lixMjMwLIUZOCOJ3Y5xxLgELn5kcqJglS58DEGSfJlyTmUKnOZjEfvN/pyhdBVjyP+s8+AwbM3ulvu0Sqe6kiFCsc+sqZI4MqTGFMnqOfzXfIAGB8R/pT7tNj+1sTN1ak6hznzHOlHb6i/YxRjepbHeMKN36XEVoORjPMYIA5xz9JdEmKdWcrorASDnA/3PPqyqeTN7qi+ronGCCo3f4nnMcyc+jR4EY7/MGykeZxKgd5AZc9+JMcqCQYJ+GjBtqAxA3W1n9MAUQGOO8hgG+8obR4nBxMEGyEmBspDcEw7NzxKlN3JmMB2D7yQhx2l2RVHczgwXg5xMEmus55EK1ZIlFsrHzJ9ZO3MVhQOyjIweZlazR4yQJri+sHtF9URYh2iJJaGi9l+iaRBpCcAljzGXuGyzTXewD9PwREvw7q/wCdbpm79xHuoUeuCcZK95N80Oqy2ZtGl9N+CXT+2O6WlbNQAteFHgQOmLBd2OBwR8RrRHFjuDjmSKtsPqdALPevGOZVaqrB6dtYKn6do4PcM5yDAPWQRt7x8V0lbLMcj9OYI5PgYjiKMHKZgnqAGTO2jmsW48KJIJH9InEDPEnPgwBsqSx8LLAfb/EgyVVsEgcCA1li+O+OIJriOwH+JzZzKlczBO9dj4H+JYOSOYPb9ZJ4ExghdcgKefM0OmagbzUf6uR95lJzvY/aXrsNdqspwVOZjM9HmVInBtyhhyCMyTiUJmbrfbf9wDCdPsH5jb8jiD6lxcp/4YvprfTvR/APMX6N8PSVEZ5BH1j1dgYe5c48xCog88n4xGlLcE4UeM+JaJJk6setS9QGAy8nzPLsmCRPWH3V5xgfPzPPa+o161yRgOdwmmtWaD3RmWVkc/M5VIjLrkdoL6SJQCVBPaUetYYo2fvBWIVOMTGBHAPaWyCMYhfSyvJAM5K8jMBgBQHxLLXzGUrycDEs1OwZI5mDYo9WM8e0wbUkjGO0dXbZwefmSFCnbiAazOFLFsGS9O1e2ZpGoFc7Rn5lLKDt7QgsyHUyqnJ+kes0x+IH8uwONsRoZGZdW+h1a62knH9QE0k1htTfnG4S7aRiuCMg9xENXo9RpkLVc1/HkSTVFVtEnUMtnqIMg8MI5p7QtoP9J7zMpcuhzwSORG9LatmR8cZkXplE7RuVOCODwYULhsmZS6h9KoLVs9fkjxNKnUV31KyNkRk9CNH/2Q==" alt="Jyoti K."/></div>
     </div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- EXPERIENCE -->
 <section id="exp" class="screen">
   <div class="section-wrap">
     <div class="section-title">Experience (8)</div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Supply Chain Specialist – Returns</div>
-          <div class="card-sub">Nike · Contract</div>
-          <div class="card-meta">Jun 2025 – Present · Hilversum (based in Almere)</div>
-        </div>
-        <span class="badge green">Current</span>
-      </div>
+      <div class="card-header"><div><div class="card-title">Supply Chain Specialist – Returns</div><div class="card-sub">Nike · Contract</div><div class="card-meta">Jun 2025 – Present · Hilversum (based in Almere)</div></div><span class="badge green">Current</span></div>
       <ul>
         <li>Managed <strong>RSO</strong> processes in NikeFlow</li>
         <li>Coordinated with <strong>MSC, warehouse, finance</strong></li>
         <li>Data validation &amp; exception handling</li>
         <li>SLA compliance &amp; process improvements</li>
         <li>Supported team through <strong>ERP transition from AFS to SAP S/4HANA</strong></li>
-        <li>Advanced <strong>Excel (Macro/VBA)</strong> used for reporting automation &amp; data reconciliation</li>
-        <li>Worked in transition phase and actively supported the team during system go-live</li>
+        <li>Advanced <strong>Excel (Macro/VBA)</strong> for reporting automation &amp; data reconciliation</li>
+        <li>Actively supported the team during system go-live</li>
         <li>Continuous improvement initiatives to reduce return processing time</li>
       </ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Reverse Logistics Specialist</div>
-          <div class="card-sub">Efulfilment Europe · Contract</div>
-          <div class="card-meta">Feb 2025 – Jun 2025 · Almere</div>
-        </div>
-      </div>
+      <div class="card-header"><div><div class="card-title">Reverse Logistics Specialist</div><div class="card-sub">Efulfilment Europe · Contract</div><div class="card-meta">Feb 2025 – Jun 2025 · Almere</div></div></div>
       <ul>
         <li><strong>End-to-end reverse logistics</strong> management</li>
         <li>Reduced processing time by <strong>18%</strong></li>
@@ -336,149 +169,63 @@
         <li>Continuous improvement focus on return flows</li>
       </ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Full-time Parenting</div>
-          <div class="card-sub">Career Break</div>
-          <div class="card-meta">May 2024 – Mar 2025</div>
-        </div>
-        <span class="badge">Break</span>
-      </div>
+      <div class="card-header"><div><div class="card-title">Full-time Parenting</div><div class="card-sub">Career Break</div><div class="card-meta">May 2024 – Mar 2025</div></div><span class="badge">Break</span></div>
       <ul>
         <li>Completed <strong>Six Sigma White Belt</strong> certification</li>
         <li>Pursued professional development in supply chain &amp; analytics</li>
       </ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Inventory Specialist</div>
-          <div class="card-sub">GXO Logistics · Full-time</div>
-          <div class="card-meta">Dec 2022 – May 2024 · Schiphol-Rijk</div>
-        </div>
-      </div>
+      <div class="card-header"><div><div class="card-title">Inventory Specialist</div><div class="card-sub">GXO Logistics · Full-time</div><div class="card-meta">Dec 2022 – May 2024 · Schiphol-Rijk</div></div></div>
       <ul>
         <li>Managed <strong>5,000+ SKUs</strong>, reduced discrepancies by <strong>20%</strong></li>
         <li>Achieved <strong>98.5% inventory accuracy</strong></li>
         <li>Advanced <strong>Excel (Macro/VBA)</strong> for stock reporting</li>
-        <li>Played key role in <strong>WMS system transition</strong> — supported team training and data migration</li>
+        <li>Key role in <strong>WMS system transition</strong> — team training &amp; data migration</li>
         <li>Contributed to continuous improvement of warehouse processes</li>
       </ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Production Planner Associate</div>
-          <div class="card-sub">Material in Motion · Full-time</div>
-          <div class="card-meta">May 2022 – Jan 2023 · Schiphol-Rijk</div>
-        </div>
-      </div>
+      <div class="card-header"><div><div class="card-title">Production Planner Associate</div><div class="card-sub">Material in Motion · Full-time</div><div class="card-meta">May 2022 – Jan 2023 · Schiphol-Rijk</div></div></div>
       <ul>
         <li>Reduced delays by <strong>15%</strong> across 5+ production lines</li>
         <li><strong>SAP</strong> tracking, <strong>95%</strong> on-time fulfillment</li>
         <li>Advanced <strong>Excel</strong> for production scheduling &amp; reporting</li>
       </ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Business Development Consultant</div>
-          <div class="card-sub">Techaxis, Inc · Full-time</div>
-          <div class="card-meta">Jul 2021 – Apr 2022 · India · Remote</div>
-        </div>
-      </div>
-      <ul>
-        <li>Client acquisition &amp; revenue growth</li>
-        <li>Data-driven approach to market analysis</li>
-      </ul>
+      <div class="card-header"><div><div class="card-title">Business Development Consultant</div><div class="card-sub">Techaxis, Inc · Full-time</div><div class="card-meta">Jul 2021 – Apr 2022 · India · Remote</div></div></div>
+      <ul><li>Client acquisition &amp; revenue growth</li><li>Data-driven approach to market analysis</li></ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Business Development Consultant</div>
-          <div class="card-sub">Levan IT · Full-time</div>
-          <div class="card-meta">Jul 2020 – Jul 2021 · Remote</div>
-        </div>
-      </div>
-      <ul>
-        <li>Customer service via email, phone &amp; chat</li>
-        <li>Building client relationships across international markets</li>
-      </ul>
+      <div class="card-header"><div><div class="card-title">Business Development Consultant</div><div class="card-sub">Levan IT · Full-time</div><div class="card-meta">Jul 2020 – Jul 2021 · Remote</div></div></div>
+      <ul><li>Customer service via email, phone &amp; chat</li><li>Building client relationships across international markets</li></ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Supply Chain Specialist</div>
-          <div class="card-sub">BBEX Logistics · Contract</div>
-          <div class="card-meta">Sep 2017 – Jun 2020 · India</div>
-        </div>
-      </div>
-      <ul>
-        <li>Demand forecasting &amp; end-to-end supply chain coordination</li>
-        <li>Foundation of supply chain expertise across 3 years</li>
-      </ul>
+      <div class="card-header"><div><div class="card-title">Supply Chain Specialist</div><div class="card-sub">BBEX Logistics · Contract</div><div class="card-meta">Sep 2017 – Jun 2020 · India</div></div></div>
+      <ul><li>Demand forecasting &amp; end-to-end supply chain coordination</li><li>Foundation of supply chain expertise across 3 years</li></ul>
     </div>
-
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- EDUCATION -->
 <section id="edu" class="screen">
   <div class="section-wrap">
     <div class="section-title">Education (3)</div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Executive Post Graduation in Supply Chain Management</div>
-          <div class="card-sub">Indian Institute of Management, Ranchi (IIM Ranchi)</div>
-          <div class="card-meta">Jul 2025 – May 2026</div>
-        </div>
-        <span class="badge green">Grade: A</span>
-      </div>
-      <ul>
-        <li>Logistics, Materials &amp; Supply Chain Management</li>
-        <li>SAP ERP, Data Analysis, advanced supply chain strategy</li>
-      </ul>
+      <div class="card-header"><div><div class="card-title">Executive Post Graduation in Supply Chain Management</div><div class="card-sub">Indian Institute of Management, Ranchi (IIM Ranchi)</div><div class="card-meta">Jul 2025 – May 2026</div></div><span class="badge green">Grade: A</span></div>
+      <ul><li>Logistics, Materials &amp; Supply Chain Management</li><li>SAP ERP, Data Analysis, advanced supply chain strategy</li></ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Master in Business Administration (MBA)</div>
-          <div class="card-sub">Annamalai University</div>
-          <div class="card-meta">Jun 2018 – Nov 2020</div>
-        </div>
-        <span class="badge green">Grade: A</span>
-      </div>
-      <ul>
-        <li>Product Management, Market Analysis</li>
-        <li>Case studies: IKEA India, Uber Business, Sugar Beauty</li>
-      </ul>
+      <div class="card-header"><div><div class="card-title">Master in Business Administration (MBA)</div><div class="card-sub">Annamalai University</div><div class="card-meta">Jun 2018 – Nov 2020</div></div><span class="badge green">Grade: A</span></div>
+      <ul><li>Product Management, Market Analysis</li><li>Case studies: IKEA India, Uber Business, Sugar Beauty</li></ul>
     </div>
-
     <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Bachelor of Science – Genetics (Honours)</div>
-          <div class="card-sub">University · India</div>
-          <div class="card-meta">2013 – 2017</div>
-        </div>
-      </div>
-      <ul>
-        <li>Science &amp; analytical foundation underpinning data-driven career</li>
-      </ul>
+      <div class="card-header"><div><div class="card-title">Bachelor of Science – Genetics (Honours)</div><div class="card-sub">University · India</div><div class="card-meta">2013 – 2017</div></div></div>
+      <ul><li>Science &amp; analytical foundation underpinning data-driven career</li></ul>
     </div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- SKILLS -->
@@ -489,55 +236,29 @@
       <div class="skill-group">
         <div class="skill-group-title">Technical</div>
         <div class="skill-tags">
-          <span class="skill-tag highlight">Excel · Macro/VBA</span>
-          <span class="skill-tag">SQL</span>
-          <span class="skill-tag">SAP S/4HANA</span>
-          <span class="skill-tag">WMS / TMS</span>
-          <span class="skill-tag">Demand Forecasting</span>
-          <span class="skill-tag">Reverse Logistics</span>
-          <span class="skill-tag">Tableau</span>
-          <span class="skill-tag">Power BI</span>
-          <span class="skill-tag">NikeFlow / AFS</span>
-          <span class="skill-tag">ERP Systems</span>
+          <span class="skill-tag highlight">Excel · Macro/VBA</span><span class="skill-tag">SQL</span><span class="skill-tag">SAP S/4HANA</span><span class="skill-tag">WMS / TMS</span><span class="skill-tag">Demand Forecasting</span><span class="skill-tag">Reverse Logistics</span><span class="skill-tag">Tableau</span><span class="skill-tag">Power BI</span><span class="skill-tag">NikeFlow / AFS</span><span class="skill-tag">ERP Systems</span>
         </div>
       </div>
       <div class="skill-group">
         <div class="skill-group-title">Core Competencies</div>
         <div class="skill-tags">
-          <span class="skill-tag">Reverse Logistics</span>
-          <span class="skill-tag">Inventory Management</span>
-          <span class="skill-tag">Quality Control</span>
-          <span class="skill-tag">Business Development</span>
-          <span class="skill-tag">Supply Chain</span>
-          <span class="skill-tag">Data Strategy</span>
-          <span class="skill-tag">Sustainability</span>
-          <span class="skill-tag">Business Analysis</span>
-          <span class="skill-tag">System Transitions</span>
-          <span class="skill-tag">Continuous Improvement</span>
+          <span class="skill-tag">Reverse Logistics</span><span class="skill-tag">Inventory Management</span><span class="skill-tag">Quality Control</span><span class="skill-tag">Business Development</span><span class="skill-tag">Supply Chain</span><span class="skill-tag">Data Strategy</span><span class="skill-tag">Sustainability</span><span class="skill-tag">Business Analysis</span><span class="skill-tag">System Transitions</span><span class="skill-tag">Continuous Improvement</span>
         </div>
       </div>
       <div class="skill-group">
-        <div class="skill-group-title">People & Soft Skills</div>
+        <div class="skill-group-title">People &amp; Soft Skills</div>
         <div class="skill-tags">
-          <span class="skill-tag highlight">People Person</span>
-          <span class="skill-tag highlight">Data-Driven Mindset</span>
-          <span class="skill-tag">Cross-functional Collaboration</span>
-          <span class="skill-tag">Stakeholder Management</span>
-          <span class="skill-tag">Team Support &amp; Transition</span>
-          <span class="skill-tag">SLA Management</span>
-          <span class="skill-tag">Process Improvement</span>
+          <span class="skill-tag highlight">People Person</span><span class="skill-tag highlight">Data-Driven Mindset</span><span class="skill-tag">Cross-functional Collaboration</span><span class="skill-tag">Stakeholder Management</span><span class="skill-tag">Team Support &amp; Transition</span><span class="skill-tag">SLA Management</span><span class="skill-tag">Process Improvement</span>
         </div>
       </div>
     </div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- CERTS -->
 <section id="certs" class="screen">
   <div class="section-wrap">
     <div class="section-title">Licences &amp; Certifications (9)</div>
-
     <div class="card"><div class="card-header"><div><div class="card-title">CCBA Level 2</div><div class="card-sub">Techcanvass · Business Analysis</div><div class="card-meta">Jul 2024 · ID: 730116</div></div><span class="badge green">Active</span></div></div>
     <div class="card"><div class="card-header"><div><div class="card-title">Six Sigma White Belt</div><div class="card-sub">Six Sigma Online · Aveta Business Institute</div><div class="card-meta">Issued Apr 2025</div></div><span class="badge">Certified</span></div></div>
     <div class="card"><div class="card-header"><div><div class="card-title">Tableau Desktop Specialist</div><div class="card-sub">Data Brio · Data Science, AI &amp; GenAI</div><div class="card-meta">Feb 2021</div></div></div></div>
@@ -548,46 +269,35 @@
     <div class="card"><div class="card-header"><div><div class="card-title">Power BI Visualization</div><div class="card-sub">Great Learning · Gap Analysis &amp; Analytics</div><div class="card-meta">Dec 2022</div></div></div></div>
     <div class="card"><div class="card-header"><div><div class="card-title">ECBA – Entry Certificate in Business Analysis</div><div class="card-sub">Udemy · Business Analytics &amp; Planning</div><div class="card-meta">Apr 2024</div></div></div></div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- ABOUT -->
 <section id="about" class="screen">
   <div class="section-wrap">
     <div class="section-title">About Me</div>
-
     <div class="about-block">
       <div class="label">👋 Who I am</div>
       <p>Hi, I'm Jyoti! A supply chain professional based in <strong>Almere, Netherlands</strong>, with over <strong>7 years</strong> of experience spanning reverse logistics, inventory management, business development, and ERP-driven operations across India and Europe.</p>
-      <p>I'm a true <strong>people person</strong> — I build strong working relationships naturally, and I believe that great supply chain results happen through great teamwork. Whether it's coordinating with warehouse teams, finance, or senior stakeholders, I bring energy and clarity to every collaboration.</p>
-      <p>I'm also deeply <strong>data-driven</strong>: I love working with data, finding patterns, and turning insights into operational improvements. Tools like Excel (including Macro/VBA), SQL, Tableau, and Power BI are part of my everyday toolkit.</p>
+      <p>I'm a true <strong>people person</strong> — I build strong working relationships naturally, and I believe great supply chain results happen through great teamwork.</p>
+      <p>I'm also deeply <strong>data-driven</strong>: I love working with data, finding patterns, and turning insights into operational improvements. Excel (Macro/VBA), SQL, Tableau, and Power BI are part of my everyday toolkit.</p>
     </div>
-
     <div class="about-block">
       <div class="label">🔄 Key Projects</div>
-
       <div class="project-card">
         <h4>WMS System Transition · GXO Logistics (2022–2024)</h4>
-        <p>At GXO Logistics (Schiphol-Rijk), I was part of a major Warehouse Management System (WMS) transition. I actively supported the team through the changeover — helping with data migration, process documentation, and training colleagues on the new system workflows. Managing 5,000+ SKUs during this live transition required both precision and adaptability, and we achieved 98.5% inventory accuracy throughout.</p>
+        <p>At GXO Logistics (Schiphol-Rijk), I was part of a major Warehouse Management System transition — supporting data migration, process documentation, and training colleagues, while managing 5,000+ SKUs at 98.5% inventory accuracy.</p>
       </div>
-
       <div class="project-card">
         <h4>ERP Migration AFS → SAP S/4HANA · Nike (2025–Present)</h4>
-        <p>At Nike, I am part of the team navigating a significant ERP transition from the legacy AFS (Apparel &amp; Footwear Solution) platform to SAP S/4HANA. I support the transition by handling RSO processes in NikeFlow, validating data integrity during migration windows, coordinating with MSC, warehouse, and finance teams to ensure SLA compliance, and identifying process improvements that align with the new system's capabilities.</p>
+        <p>At Nike, I support a major ERP transition from legacy AFS to SAP S/4HANA — handling RSO in NikeFlow, validating data integrity, and coordinating with MSC, warehouse, and finance teams for SLA compliance.</p>
       </div>
     </div>
-
     <div class="about-block">
       <div class="label">🚀 What drives me</div>
-      <p>✅ Streamlining operations through process design and data analysis<br/>
-         ✅ Leveraging tools: Excel, SQL, SAP, Tableau, Power BI<br/>
-         ✅ Continuous improvement — always asking "how can we do this better?"<br/>
-         ✅ Customer satisfaction and service excellence<br/>
-         ✅ Sustainability in supply chain practice</p>
+      <p>✅ Streamlining operations through process design and data analysis<br/>✅ Leveraging tools: Excel, SQL, SAP, Tableau, Power BI<br/>✅ Continuous improvement — always asking "how can we do this better?"<br/>✅ Customer satisfaction and service excellence<br/>✅ Sustainability in supply chain practice</p>
       <p>📌 <strong>Let's connect!</strong> <a href="https://www.linkedin.com/in/jyoti-k-6b793922a" target="_blank" style="color: var(--purple);">LinkedIn →</a></p>
     </div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- JOURNEY -->
@@ -603,10 +313,9 @@
       <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2022–2024 · Inventory</div><div class="timeline-co">GXO Logistics · Schiphol-Rijk</div><div class="timeline-desc">5,000+ SKUs · 98.5% accuracy · WMS system transition</div></div>
       <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2024–2025 · Career Break</div><div class="timeline-co">Full-time Parenting</div><div class="timeline-desc">Six Sigma White Belt · continuous professional development</div></div>
       <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2025 · Reverse Logistics</div><div class="timeline-co">Efulfilment Europe · Almere</div><div class="timeline-desc">End-to-end returns · 18% processing time reduction</div></div>
-      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2025–Present · Nike</div><div class="timeline-co">Returns Operations · Hilversum</div><div class="timeline-desc">RSO in NikeFlow · ERP transition AFS → SAP S/4HANA · continuous improvement · based in Almere</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2025–Present · Nike</div><div class="timeline-co">Returns Operations · Hilversum</div><div class="timeline-desc">RSO in NikeFlow · ERP transition AFS → SAP S/4HANA · based in Almere</div></div>
     </div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- HOBBIES -->
@@ -614,20 +323,17 @@
   <div class="section-wrap">
     <div class="section-title">Outside of Work</div>
     <div class="hobbies-grid">
-      <div class="hobby-chip"><span class="emoji">📚</span>Reading</div>
-      <div class="hobby-chip"><span class="emoji">🏃</span>Running</div>
-      <div class="hobby-chip"><span class="emoji">🎨</span>Arts</div>
-      <div class="hobby-chip"><span class="emoji">✈️</span>Travel</div>
+      <div class="hobby-chip"><span class="emoji">💃</span>Dancing</div>
       <div class="hobby-chip"><span class="emoji">🍳</span>Cooking</div>
-      <div class="hobby-chip"><span class="emoji">🧘</span>Yoga</div>
+      <div class="hobby-chip"><span class="emoji">🎨</span>Arts &amp; Craft</div>
+      <div class="hobby-chip"><span class="emoji">✈️</span>Travel</div>
+      <div class="hobby-chip"><span class="emoji">🏸</span>Badminton</div>
       <div class="hobby-chip"><span class="emoji">🥾</span>Hiking</div>
-
+      <div class="hobby-chip"><span class="emoji">🛋️</span>Interior Styling</div>
+      <div class="hobby-chip"><span class="emoji">🧘</span>Yoga / Stretch</div>
     </div>
-    <div style="margin-top:24px; text-align:center; color: var(--muted); font-style: italic; font-size:0.9rem;">
-      "Work hard, stay curious, enjoy the moments." ✨
-    </div>
+    <div style="margin-top:24px; text-align:center; color: var(--muted); font-style: italic; font-size:0.9rem;">"Work hard, stay curious, enjoy the moments." ✨</div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <!-- FAMILY -->
@@ -636,24 +342,17 @@
     <div class="section-title">Family</div>
     <div class="family-card">
       <h3>My Greatest Anchor</h3>
-      <p>Family is the foundation everything else is built on. Being a proud <strong>parent</strong> and <strong>partner</strong> in <strong>Almere, NL</strong> is my most important role — it shapes who I am, how I work, and what I work for.</p>
-      <p>The decision to take a career break for full-time parenting was one I made with full intention. That season taught me patience, adaptability, and a deeper sense of purpose — qualities that make me a better professional and a more grounded person.</p>
-      <p>My family inspires me to keep growing, to stay curious about the world, and to explore new places and cultures together. Whether it's weekend hikes, cooking new recipes, or planning our next adventure, we do life as a team.</p>
-      <p>I believe in raising a home full of <strong>love, laughter, and learning</strong> — where both challenges and achievements are shared, and where gratitude is a daily practice, not a once-a-year moment.</p>
-      <p>They are my <em>why</em> — behind every career goal, every certification pursued, every late-night Excel sheet, there is a family I am building a future for.</p>
+      <p>Family is the foundation everything else is built on. Being a proud <strong>parent</strong> and <strong>partner</strong> in <strong>Almere, NL</strong> is my most important role.</p>
+      <p>The decision to take a career break for full-time parenting was one I made with full intention. That season taught me patience, adaptability, and a deeper sense of purpose.</p>
+      <p>My family inspires me to keep growing, to stay curious, and to explore new places and cultures together — weekend hikes, new recipes, or planning our next adventure, we do life as a team.</p>
+      <p>I believe in raising a home full of <strong>love, laughter, and learning</strong>, where gratitude is a daily practice, not a once-a-year moment.</p>
+      <p>They are my <em>why</em> — behind every career goal, every certification, every late-night Excel sheet, there is a family I am building a future for.</p>
       <div class="family-values">
-        <span class="family-val">❤️ Love</span>
-        <span class="family-val">🌱 Growth</span>
-        <span class="family-val">🌍 Exploring</span>
-        <span class="family-val">🙏 Gratitude</span>
-        <span class="family-val">🤝 Togetherness</span>
-        <span class="family-val">😄 Joy</span>
+        <span class="family-val">❤️ Love</span><span class="family-val">🌱 Growth</span><span class="family-val">🌍 Exploring</span><span class="family-val">🙏 Gratitude</span><span class="family-val">🤝 Togetherness</span><span class="family-val">😄 Joy</span>
       </div>
       <div class="family-quote">"Home is not a place — it's the people you choose to build your life with." 🏡</div>
-      <div style="margin-top:20px;">
     </div>
   </div>
-  <footer>built with ♥ · Jyoti K. · 2026</footer>
 </section>
 
 <script>
